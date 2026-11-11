@@ -70,6 +70,7 @@ The project explores troubleshooting scenarios related to:
 5. **Diagnosis and Recommendations:** Generate possible causes, OSI layer identification and troubleshooting suggestions.
 6. **Testing and Validation:** Evaluate the system using documented network troubleshooting test cases.
 7. **Dashboard Development:** Present relevant testing results and project analysis through a Power BI dashboard.
+   ![NetForensics AI Dashboard](NetForensics-Dashboard.png)
 
 ## Expected System Output
 
