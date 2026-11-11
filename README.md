@@ -10,6 +10,8 @@ It is designed to analyse network symptoms, topology information and diagnostic 
 
 The system focuses on making network troubleshooting more structured, understandable and efficient.
 
+## Project Demo
+[Watch NetForensics AI Demo](https://www.youtube.com/watch?v=Fs2d9mxZ83A)
 ## Problem Statement
 
 Network troubleshooting can be challenging, especially when identifying the root cause of connectivity issues across different network layers and devices.
@@ -61,6 +63,9 @@ The project explores troubleshooting scenarios related to:
 - DHCP
 - DNS
 
+## Dashboard
+![NetForensics AI Dashboard](NetForensics-Dashboard.png)
+
 ## Project Workflow
 
 1. **Problem Identification:** Understand common networking problems and troubleshooting requirements.
@@ -70,7 +75,6 @@ The project explores troubleshooting scenarios related to:
 5. **Diagnosis and Recommendations:** Generate possible causes, OSI layer identification and troubleshooting suggestions.
 6. **Testing and Validation:** Evaluate the system using documented network troubleshooting test cases.
 7. **Dashboard Development:** Present relevant testing results and project analysis through a Power BI dashboard.
-   ![NetForensics AI Dashboard](NetForensics-Dashboard.png)
 
 ## Expected System Output
 
