@@ -1,0 +1,2901 @@
+Case_ID,Category,Difficulty,Topology,Symptom,Evidence,Expected_Fault,OSI_Layer,Concept,Severity,Expected_Next_Command,Expected_Fix,Verification ,Notes,AI Prompt,Case Text,AI_Similar_Case_ID,AI_Similarity_Score,AI_Confidence,AI_Probable_Fault,AI_Recommended_Command,AI_Suggested_Fix,AI_Match
+C001,VLAN,Easy,PC1->Switch1->Router1->Server1,PC cannot reach gateway or server,"show vlan brief, show interfaces fa0/1 switchport, ipconfig",PC switch port assigned to wrong VLAN,Layer 2,VLAN,High,show vlan brief,Assign Fa0/1 to VLAN 10,Ping gateway and server successfully,PC has VLAN 10 IP configuration but switch port is in VLAN 20,"
+You are a network troubleshooting assistant.
+
+Analyze the following network fault case using only the information provided.
+
+Network Topology:
+PC1->Switch1->Router1->Server1
+
+Protocol or Technology:
+VLAN
+
+Symptom:
+PC cannot reach gateway or server
+
+Evidence:
+show vlan brief, show interfaces fa0/1 switchport, ipconfig
+
+Provide the diagnosis in the following format:
+
+Root Cause:
+Confidence:
+Evidence Used:
+OSI Layer:
+Recommended Next Command:
+Suggested Fix Steps:
+
+Do not make unsupported assumptions.
+If the available evidence is insufficient, mention that additional troubleshooting is required.
+","PC cannot reach gateway or server show vlan brief, show interfaces fa0/1 switchport, ipconfig",C002,0.56,Medium,VLAN 10 missing on Switch1,show vlan brief,Recreate VLAN 10 and assign required ports,FALSE
+C002,VLAN,Easy,PC1->Switch1->Router1->Server1,PC cannot reach gateway/server,VLAN and switchport outputs + IP/ping results,VLAN 10 missing on Switch1,Layer 2,VLAN,High,show vlan brief,Recreate VLAN 10 and assign required ports,Gateway and server ping successfully,VLAN itself was deleted,"
+You are a network troubleshooting assistant.
+
+Analyze the following network fault case using only the information provided.
+
+Network Topology:
+PC1->Switch1->Router1->Server1
+
+Protocol or Technology:
+VLAN
+
+Symptom:
+PC cannot reach gateway/server
+
+Evidence:
+VLAN and switchport outputs + IP/ping results
+
+Provide the diagnosis in the following format:
+
+Root Cause:
+Confidence:
+Evidence Used:
+OSI Layer:
+Recommended Next Command:
+Suggested Fix Steps:
+
+Do not make unsupported assumptions.
+If the available evidence is insufficient, mention that additional troubleshooting is required.
+",PC cannot reach gateway/server VLAN and switchport outputs + IP/ping results,C001,0.56,Medium,PC switch port assigned to wrong VLAN,show vlan brief,Assign Fa0/1 to VLAN 10,FALSE
+C003,VLAN/Trunk,Medium,PC1->Switch1->Switch2->PC2; Switch1 Fa0/2 <-> Switch2 Fa0/1 is trunk,PC1 cannot reach PC2,show interfaces trunk on Switch1/Switch2; show vlan brief on Switch1/Switch2; ipconfig on PC1/PC2; failed ping PC1 -> PC2,VLAN 10 not allowed on trunk,Layer 2,Trunking,High,show interfaces trunk,Allow VLAN 10 on trunk,PC1 successfully pings PC2,"VLAN 10 exists on both switches and access ports are correctly assigned, but VLAN 10 is not allowed on the Switch1-Switch2 trunk","
+You are a network troubleshooting assistant.
+
+Analyze the following network fault case using only the information provided.
+
+Network Topology:
+PC1->Switch1->Switch2->PC2; Switch1 Fa0/2 <-> Switch2 Fa0/1 is trunk
+
+Protocol or Technology:
+VLAN/Trunk
+
+Symptom:
+PC1 cannot reach PC2
+
+Evidence:
+show interfaces trunk on Switch1/Switch2; show vlan brief on Switch1/Switch2; ipconfig on PC1/PC2; failed ping PC1 -> PC2
+
+Provide the diagnosis in the following format:
+
+Root Cause:
+Confidence:
+Evidence Used:
+OSI Layer:
+Recommended Next Command:
+Suggested Fix Steps:
+
+Do not make unsupported assumptions.
+If the available evidence is insufficient, mention that additional troubleshooting is required.
+",PC1 cannot reach PC2 show interfaces trunk on Switch1/Switch2; show vlan brief on Switch1/Switch2; ipconfig on PC1/PC2; failed ping PC1 -> PC2,C007,0.51,Medium,R1 has incorrect static route next hop 10.0.0.3,show ip route,Change next hop to 10.0.0.2,FALSE
+C004,DHCP,Medium,PC1-> Switch1-> Router1,PC1 does not receive a vali 192.168.10.x address,"ipconfig, show ip dhcp pool, show ip dhcp binding, show running-config | section dhcp, failed ping to 192.168.10.1",DHCP pool configured with wrong network,Layer 3,DHCP,High,show ip dhcp pool,Configure DHCP pool for 192.168.10.0/24,PC1 receives 192.168.10.x address and can ping 192.168.10.1,"DHCP service is present, but the pool network does not match the LAN","
+You are a network troubleshooting assistant.
+
+Analyze the following network fault case using only the information provided.
+
+Network Topology:
+PC1-> Switch1-> Router1
+
+Protocol or Technology:
+DHCP
+
+Symptom:
+PC1 does not receive a vali 192.168.10.x address
+
+Evidence:
+ipconfig, show ip dhcp pool, show ip dhcp binding, show running-config | section dhcp, failed ping to 192.168.10.1
+
+Provide the diagnosis in the following format:
+
+Root Cause:
+Confidence:
+Evidence Used:
+OSI Layer:
+Recommended Next Command:
+Suggested Fix Steps:
+
+Do not make unsupported assumptions.
+If the available evidence is insufficient, mention that additional troubleshooting is required.
+","PC1 does not receive a vali 192.168.10.x address ipconfig, show ip dhcp pool, show ip dhcp binding, show running-config | section dhcp, failed ping to 192.168.10.1",C017,0.42,Medium,Missing ip helper-address,show running-config,ip helper-address on the client-facing router interface.,FALSE
+C005,Interface Failure,Easy,PC1->Switch1->Router1->Server1,PC1 cannot reach default gateway,"show ip interface brief, show interfaces g0/0, ipconfig, failed ping",R1 G0/0 administratively shut down,Layer 3,Router interface status,High,show ip interface brief,no shutdown on Router1 G0/0,G0/0 becomes up/up and PC1 csuccessfully pings 192.168.10.1,"Physical connection is intact, but the router interface is administratively disabled","
+You are a network troubleshooting assistant.
+
+Analyze the following network fault case using only the information provided.
+
+Network Topology:
+PC1->Switch1->Router1->Server1
+
+Protocol or Technology:
+Interface Failure
+
+Symptom:
+PC1 cannot reach default gateway
+
+Evidence:
+show ip interface brief, show interfaces g0/0, ipconfig, failed ping
+
+Provide the diagnosis in the following format:
+
+Root Cause:
+Confidence:
+Evidence Used:
+OSI Layer:
+Recommended Next Command:
+Suggested Fix Steps:
+
+Do not make unsupported assumptions.
+If the available evidence is insufficient, mention that additional troubleshooting is required.
+","PC1 cannot reach default gateway show ip interface brief, show interfaces g0/0, ipconfig, failed ping",C007,0.48,Medium,R1 has incorrect static route next hop 10.0.0.3,show ip route,Change next hop to 10.0.0.2,FALSE
+C006,IP Addressing,Medium,PC1-> Switch1-> Router1;PC2->Switch1,Connectivity fails after two hosts are configured with the same IP,"ipconfig, arp -a on PC1/PC2, failed gateway pings",PC1 and PC2 configured with the same IP address 192.168.10.10,Layer 3,Duplicate IP Addressing,High,ipconfig,"Assign PC2 a unique IP address, 192.168.10.20",PC1 and PC2 successfully communicate and can reach 192.168.10.1,Duplicate IP addresses cause an IP address conflict and connectivity problems,"
+You are a network troubleshooting assistant.
+
+Analyze the following network fault case using only the information provided.
+
+Network Topology:
+PC1-> Switch1-> Router1;PC2->Switch1
+
+Protocol or Technology:
+IP Addressing
+
+Symptom:
+Connectivity fails after two hosts are configured with the same IP
+
+Evidence:
+ipconfig, arp -a on PC1/PC2, failed gateway pings
+
+Provide the diagnosis in the following format:
+
+Root Cause:
+Confidence:
+Evidence Used:
+OSI Layer:
+Recommended Next Command:
+Suggested Fix Steps:
+
+Do not make unsupported assumptions.
+If the available evidence is insufficient, mention that additional troubleshooting is required.
+","Connectivity fails after two hosts are configured with the same IP ipconfig, arp -a on PC1/PC2, failed gateway pings",C003,0.31,Low,VLAN 10 not allowed on trunk,show interfaces trunk,Allow VLAN 10 on trunk,FALSE
+C007,Routing,Medium,PC1->Switch1->Router1->Router2->Switch2->PC2,PC1 cannot reach PC2 on remote LAN,"show ip route, show running-config, ipconfig, failed ping",R1 has incorrect static route next hop 10.0.0.3,Layer 3,Static Routing,High,show ip route,Change next hop to 10.0.0.2,PC1 successfully pings 192.168.20.10,"Remote network exists, but R1 forwards traffic toward an incorrect next-hop address","
+You are a network troubleshooting assistant.
+
+Analyze the following network fault case using only the information provided.
+
+Network Topology:
+PC1->Switch1->Router1->Router2->Switch2->PC2
+
+Protocol or Technology:
+Routing
+
+Symptom:
+PC1 cannot reach PC2 on remote LAN
+
+Evidence:
+show ip route, show running-config, ipconfig, failed ping
+
+Provide the diagnosis in the following format:
+
+Root Cause:
+Confidence:
+Evidence Used:
+OSI Layer:
+Recommended Next Command:
+Suggested Fix Steps:
+
+Do not make unsupported assumptions.
+If the available evidence is insufficient, mention that additional troubleshooting is required.
+","PC1 cannot reach PC2 on remote LAN show ip route, show running-config, ipconfig, failed ping",C003,0.51,Medium,VLAN 10 not allowed on trunk,show interfaces trunk,Allow VLAN 10 on trunk,FALSE
+C008,DNS/Name Resolution,Easy,PC1->Switch1->Router1+DNS Server,IP connectivity works but hostname resolution fails,"ipconfig, successful DNS-server ping, failed nslookup",PC1 configured with incorrect DNS server 192.168.10.200,Layer 7,DNS,Medium,ipconfig/nslookup,Set DNS server to 192.168.10.100,nslookup cisco.local successfully resolves,Network connectivity remains available; only name resolution is affected,"
+You are a network troubleshooting assistant.
+
+Analyze the following network fault case using only the information provided.
+
+Network Topology:
+PC1->Switch1->Router1+DNS Server
+
+Protocol or Technology:
+DNS/Name Resolution
+
+Symptom:
+IP connectivity works but hostname resolution fails
+
+Evidence:
+ipconfig, successful DNS-server ping, failed nslookup
+
+Provide the diagnosis in the following format:
+
+Root Cause:
+Confidence:
+Evidence Used:
+OSI Layer:
+Recommended Next Command:
+Suggested Fix Steps:
+
+Do not make unsupported assumptions.
+If the available evidence is insufficient, mention that additional troubleshooting is required.
+","IP connectivity works but hostname resolution fails ipconfig, successful DNS-server ping, failed nslookup",C057,0.25,Low,Incorrect NTP server configuration,show ntp associations,Correct NTP server address/configuration,FALSE
+C009,Ethernet,Easy,PC1->Switch1->PC2,PC1 cannot communicate with PC2; ping shows 100% loss,show interfaces status on Switch1 shows Fa0/2 as notconnect; PC1 and PC2 have valid IP addresses in the same subnet,Ethernet cable between Switch1 Fa0/2 and PC2 Fa0 is disconnected,Layer 1,Physical connectivity/Ethernet link,High,show interfaces status,Reconnect the Ethernet cable between Switch1 Fa0/2 and PC2 Fa0,Ping PC2 from PC1:ping 192.168.10.20: expected0% packet loss,Physical link should show connected/green after reconnecting the cable,"
+You are a network troubleshooting assistant.
+
+Analyze the following network fault case using only the information provided.
+
+Network Topology:
+PC1->Switch1->PC2
+
+Protocol or Technology:
+Ethernet
+
+Symptom:
+PC1 cannot communicate with PC2; ping shows 100% loss
+
+Evidence:
+show interfaces status on Switch1 shows Fa0/2 as notconnect; PC1 and PC2 have valid IP addresses in the same subnet
+
+Provide the diagnosis in the following format:
+
+Root Cause:
+Confidence:
+Evidence Used:
+OSI Layer:
+Recommended Next Command:
+Suggested Fix Steps:
+
+Do not make unsupported assumptions.
+If the available evidence is insufficient, mention that additional troubleshooting is required.
+",PC1 cannot communicate with PC2; ping shows 100% loss show interfaces status on Switch1 shows Fa0/2 as notconnect; PC1 and PC2 have valid IP addresses in the same subnet,C003,0.44,Medium,VLAN 10 not allowed on trunk,show interfaces trunk,Allow VLAN 10 on trunk,FALSE
+C010,Ethernet,Easy,PC1->Switch1,PC1 cannot communicate with the switch;Ethernet link is not operational,show interfaces status shows that Fa0/1 is not in the normal connected state; PC1 has valid IP configuration,Wrong Ethernet cable type used between PC1 Fa0 and Switch1 Fa0/1,Layer 1,Ethernet cable type/physical connectivity,High,show interfaces status,Replace the incorrect cable with the appropriate Ethernet cable,show interfaces status shows Fa0/1 as connected and the physical link becomes active,Wrong cable type used; physical link is down,"
+You are a network troubleshooting assistant.
+
+Analyze the following network fault case using only the information provided.
+
+Network Topology:
+PC1->Switch1
+
+Protocol or Technology:
+Ethernet
+
+Symptom:
+PC1 cannot communicate with the switch;Ethernet link is not operational
+
+Evidence:
+show interfaces status shows that Fa0/1 is not in the normal connected state; PC1 has valid IP configuration
+
+Provide the diagnosis in the following format:
+
+Root Cause:
+Confidence:
+Evidence Used:
+OSI Layer:
+Recommended Next Command:
+Suggested Fix Steps:
+
+Do not make unsupported assumptions.
+If the available evidence is insufficient, mention that additional troubleshooting is required.
+",PC1 cannot communicate with the switch;Ethernet link is not operational show interfaces status shows that Fa0/1 is not in the normal connected state; PC1 has valid IP configuration,C009,0.37,Low,Ethernet cable between Switch1 Fa0/2 and PC2 Fa0 is disconnected,show interfaces status,Reconnect the Ethernet cable between Switch1 Fa0/2 and PC2 Fa0,FALSE
+C011,ARP / Address Resolution,Medium,PC1 → Router1 ; Router1→ PC2,PC1 cannot reach PC2; ping shows packet loss,show ip interface brief shows R1 interfaces up/up; show arp shows an incorrect MAC address mapped to 192.168.20.10; ping fails,Incorrect static ARP entry for PC2,Layer 2/3,ARP address-to-MAC resolution,High,show arp,Remove the incorrect ARP entry using no arp 192.168.20.10,ping 192.168.20.10 succeeds with 0% packet loss and ARP table shows the correct MAC,Incorrect MAC mapped to PC2 IP,"
+You are a network troubleshooting assistant.
+
+Analyze the following network fault case using only the information provided.
+
+Network Topology:
+PC1 → Router1 ; Router1→ PC2
+
+Protocol or Technology:
+ARP / Address Resolution
+
+Symptom:
+PC1 cannot reach PC2; ping shows packet loss
+
+Evidence:
+show ip interface brief shows R1 interfaces up/up; show arp shows an incorrect MAC address mapped to 192.168.20.10; ping fails
+
+Provide the diagnosis in the following format:
+
+Root Cause:
+Confidence:
+Evidence Used:
+OSI Layer:
+Recommended Next Command:
+Suggested Fix Steps:
+
+Do not make unsupported assumptions.
+If the available evidence is insufficient, mention that additional troubleshooting is required.
+",PC1 cannot reach PC2; ping shows packet loss show ip interface brief shows R1 interfaces up/up; show arp shows an incorrect MAC address mapped to 192.168.20.10; ping fails,C009,0.31,Low,Ethernet cable between Switch1 Fa0/2 and PC2 Fa0 is disconnected,show interfaces status,Reconnect the Ethernet cable between Switch1 Fa0/2 and PC2 Fa0,FALSE
+C012,TCP / HTTP Service,Medium,PC1 → Switch1 ; Switch1  → Server1,PC1 can ping the server but cannot access its HTTP webpage,Ping to 192.168.10.20 succeeds; HTTP webpage fails to load; Server HTTP service is Off,HTTP service disabled on the server,Layer 4/7,HTTP service over TCP,Medium,ping 192.168.10.20,Enable HTTP service on the Server,HTTP webpage loads successfully and ping shows 0% packet loss,IP connectivity works but HTTP service is unavailable,"
+You are a network troubleshooting assistant.
+
+Analyze the following network fault case using only the information provided.
+
+Network Topology:
+PC1 → Switch1 ; Switch1  → Server1
+
+Protocol or Technology:
+TCP / HTTP Service
+
+Symptom:
+PC1 can ping the server but cannot access its HTTP webpage
+
+Evidence:
+Ping to 192.168.10.20 succeeds; HTTP webpage fails to load; Server HTTP service is Off
+
+Provide the diagnosis in the following format:
+
+Root Cause:
+Confidence:
+Evidence Used:
+OSI Layer:
+Recommended Next Command:
+Suggested Fix Steps:
+
+Do not make unsupported assumptions.
+If the available evidence is insufficient, mention that additional troubleshooting is required.
+",PC1 can ping the server but cannot access its HTTP webpage Ping to 192.168.10.20 succeeds; HTTP webpage fails to load; Server HTTP service is Off,C070,0.38,Low,HTTP application service is not running on the web server.,Check Server1 HTTP service status,Enable the HTTP service and ensure TCP port 80 is available.,FALSE
+C013,CDP / Neighbor Discovery,Medium,PC1  → Router1 ; Router1 → Router2 ,R1 cannot discover R2 using CDP although IP connectivity works,show cdp neighbors does not display R2; show cdp interface g0/1 shows CDP disabled; G0/1 is up/up and ping to R2 succeeds,CDP disabled on R1 G0/1,Layer 2,Cisco Discovery Protocol (CDP),Medium,show cdp neighbors,Enable CDP on R1 G0/1 using cdp enable,R2 appears in show cdp neighbors and show cdp neighbors detail,CDP disabled on R1 G0/1 while IP connectivity remains functional,"
+You are a network troubleshooting assistant.
+
+Analyze the following network fault case using only the information provided.
+
+Network Topology:
+PC1  → Router1 ; Router1 → Router2 
+
+Protocol or Technology:
+CDP / Neighbor Discovery
+
+Symptom:
+R1 cannot discover R2 using CDP although IP connectivity works
+
+Evidence:
+show cdp neighbors does not display R2; show cdp interface g0/1 shows CDP disabled; G0/1 is up/up and ping to R2 succeeds
+
+Provide the diagnosis in the following format:
+
+Root Cause:
+Confidence:
+Evidence Used:
+OSI Layer:
+Recommended Next Command:
+Suggested Fix Steps:
+
+Do not make unsupported assumptions.
+If the available evidence is insufficient, mention that additional troubleshooting is required.
+",R1 cannot discover R2 using CDP although IP connectivity works show cdp neighbors does not display R2; show cdp interface g0/1 shows CDP disabled; G0/1 is up/up and ping to R2 succeeds,C016,0.7,Medium,CDP disabled on R1 G0/0 using no cdp enable,show cdp neighbors; show cdp interface g0/0,Enable CDP on R1 G0/0 using cdp enable,FALSE
+C014,STP,Medium,Switch1 → Switch2;Switch2  → Switch3 ; Switch3  → Switch1 ,SW3 unexpectedly becomes the STP Root Bridge,show spanning-tree and show spanning-tree vlan 1 show SW3 as Root; STP priority on SW3 is lower than SW1,Incorrect STP priority configured on SW3,Layer 2,STP Root Bridge Election,Medium,show spanning-tree,Set SW3 VLAN 1 priority to 32768,show spanning-tree vlan 1 confirms SW1 is Root Bridge and SW3 is non-root,"SW3 priority was set to 0, causing it to win the Root Bridge election","
+You are a network troubleshooting assistant.
+
+Analyze the following network fault case using only the information provided.
+
+Network Topology:
+Switch1 → Switch2;Switch2  → Switch3 ; Switch3  → Switch1 
+
+Protocol or Technology:
+STP
+
+Symptom:
+SW3 unexpectedly becomes the STP Root Bridge
+
+Evidence:
+show spanning-tree and show spanning-tree vlan 1 show SW3 as Root; STP priority on SW3 is lower than SW1
+
+Provide the diagnosis in the following format:
+
+Root Cause:
+Confidence:
+Evidence Used:
+OSI Layer:
+Recommended Next Command:
+Suggested Fix Steps:
+
+Do not make unsupported assumptions.
+If the available evidence is insufficient, mention that additional troubleshooting is required.
+",SW3 unexpectedly becomes the STP Root Bridge show spanning-tree and show spanning-tree vlan 1 show SW3 as Root; STP priority on SW3 is lower than SW1,C022,0.41,Medium,Incorrect STP root bridge,show spanning-tree,Set intended root priority,FALSE
+C015,EtherChannel / PAgP,Medium-Hard,Switch1  → Switch2 ; Switch1 → Switch2 ,EtherChannel is not correctly bundling both links,show etherchannel summary shows inconsistent channel membership; SW2 Fa0/2 is assigned to channel-group 2 while the other member ports use channel-group 1,Switch2 assigned to the wrong EtherChannel group,Layer 2,Etherchannel / PAgP,High,show etherchannel sumary,Remove Fa0/2 from channel-group 2 and assign it to channel-group 1 using PAgP,show etherchannel summary shows Po1(SU) with Fa0/1(P) and Fa0/2(P) on both switches,"One physical member was assigned to a different channel group, preventing consistent EtherChannel bundling","
+You are a network troubleshooting assistant.
+
+Analyze the following network fault case using only the information provided.
+
+Network Topology:
+Switch1  → Switch2 ; Switch1 → Switch2 
+
+Protocol or Technology:
+EtherChannel / PAgP
+
+Symptom:
+EtherChannel is not correctly bundling both links
+
+Evidence:
+show etherchannel summary shows inconsistent channel membership; SW2 Fa0/2 is assigned to channel-group 2 while the other member ports use channel-group 1
+
+Provide the diagnosis in the following format:
+
+Root Cause:
+Confidence:
+Evidence Used:
+OSI Layer:
+Recommended Next Command:
+Suggested Fix Steps:
+
+Do not make unsupported assumptions.
+If the available evidence is insufficient, mention that additional troubleshooting is required.
+",EtherChannel is not correctly bundling both links show etherchannel summary shows inconsistent channel membership; SW2 Fa0/2 is assigned to channel-group 2 while the other member ports use channel-group 1,C087,0.33,Low,Uneven traffic is caused by normal load-balancing hash behavior based on traffic flow characteristics.,show etherchannel load-balance,Adjust the load-balancing algorithm only if network requirements demand improved distribution.,FALSE
+C016,Network Discovery,Medium,Router1  ↔ Router2,"R1/R2 cannot discover the neighboring router through CDP, while IP connectivity still works","show cdp neighbors, show cdp interface g0/0, successful ping 192.168.20.2",CDP disabled on R1 G0/0 using no cdp enable,Layer 2,Cisco Discovery Protocol (CDP),Medium,show cdp neighbors; show cdp interface g0/0,Enable CDP on R1 G0/0 using cdp enable,show cdp neighbors shows the neighboring router and ping succeeds,"IP connectivity is working, but CDP neighbor information is missing while CDP is disabled; after the fix, the neighbor information returns.","
+You are a network troubleshooting assistant.
+
+Analyze the following network fault case using only the information provided.
+
+Network Topology:
+Router1  ↔ Router2
+
+Protocol or Technology:
+Network Discovery
+
+Symptom:
+R1/R2 cannot discover the neighboring router through CDP, while IP connectivity still works
+
+Evidence:
+show cdp neighbors, show cdp interface g0/0, successful ping 192.168.20.2
+
+Provide the diagnosis in the following format:
+
+Root Cause:
+Confidence:
+Evidence Used:
+OSI Layer:
+Recommended Next Command:
+Suggested Fix Steps:
+
+Do not make unsupported assumptions.
+If the available evidence is insufficient, mention that additional troubleshooting is required.
+","R1/R2 cannot discover the neighboring router through CDP, while IP connectivity still works show cdp neighbors, show cdp interface g0/0, successful ping 192.168.20.2",C013,0.7,Medium,CDP disabled on R1 G0/1,show cdp neighbors,Enable CDP on R1 G0/1 using cdp enable,FALSE
+C017,DHCP Services,Medium,PC1 → Switch1 → Router1 → Router2 → DHCP Server,PC1 displays 'DHCP request failed' and remains without a valid IP address because the DHCP server is on a remote network.,"PC DHCP request failed, show ip route, running configuration.",Missing ip helper-address,Layer 3,DHCP Relay,High,show running-config,ip helper-address on the client-facing router interface.,PC receives a valid DHCP address and can ping gateway/server,Verify end-to-end connectivity first. Capture DHCP failure and router configuration before fixing. Record the missing helper-address condition and confirm routing in both directions.,"
+You are a network troubleshooting assistant.
+
+Analyze the following network fault case using only the information provided.
+
+Network Topology:
+PC1 → Switch1 → Router1 → Router2 → DHCP Server
+
+Protocol or Technology:
+DHCP Services
+
+Symptom:
+PC1 displays 'DHCP request failed' and remains without a valid IP address because the DHCP server is on a remote network.
+
+Evidence:
+PC DHCP request failed, show ip route, running configuration.
+
+Provide the diagnosis in the following format:
+
+Root Cause:
+Confidence:
+Evidence Used:
+OSI Layer:
+Recommended Next Command:
+Suggested Fix Steps:
+
+Do not make unsupported assumptions.
+If the available evidence is insufficient, mention that additional troubleshooting is required.
+","PC1 displays 'DHCP request failed' and remains without a valid IP address because the DHCP server is on a remote network. PC DHCP request failed, show ip route, running configuration.",C004,0.42,Medium,DHCP pool configured with wrong network,show ip dhcp pool,Configure DHCP pool for 192.168.10.0/24,FALSE
+C018,Switching,Medium,PC1 → Switch1 ↔ Switch2 → PC2,"The trunk is operational, but untagged/native VLAN traffic behaves unexpectedly between switches.","show interfaces trunk, show vlan brief",Different native VLAN configured on trunk ends.,Layer 2,Native VLAN,Medium,show interfaces trunk,Configure the same native VLAN on both switches,Verify trunk and successful VLAN connectivity,Compare trunk settings on both ends. Record each native VLAN before correction and verify both ends match afterward.,"
+You are a network troubleshooting assistant.
+
+Analyze the following network fault case using only the information provided.
+
+Network Topology:
+PC1 → Switch1 ↔ Switch2 → PC2
+
+Protocol or Technology:
+Switching
+
+Symptom:
+The trunk is operational, but untagged/native VLAN traffic behaves unexpectedly between switches.
+
+Evidence:
+show interfaces trunk, show vlan brief
+
+Provide the diagnosis in the following format:
+
+Root Cause:
+Confidence:
+Evidence Used:
+OSI Layer:
+Recommended Next Command:
+Suggested Fix Steps:
+
+Do not make unsupported assumptions.
+If the available evidence is insufficient, mention that additional troubleshooting is required.
+","The trunk is operational, but untagged/native VLAN traffic behaves unexpectedly between switches. show interfaces trunk, show vlan brief",C084,0.57,Medium,Required VLAN is excluded from the permitted trunk VLAN range.,show interfaces trunk,Add the required VLAN to the allowed VLAN list on the trunk.,FALSE
+C019,Switching,Medium,Switch1 ↔ Switch2 with PCs,Hosts in the same VLAN on different switches cannot communicate although access ports appear correct.,"show interfaces trunk, show interfaces switchport",Incorrect DTP negotiation,Layer 2,Dynamic Trunking Protocol,Medium,show interfaces switchport,Configure compatible DTP modes or force trunk.,Trunk becomes active,Check the trunk allowed-VLAN list before changing access ports. Capture the required VLAN missing from the trunk and verify forwarding after correction.,"
+You are a network troubleshooting assistant.
+
+Analyze the following network fault case using only the information provided.
+
+Network Topology:
+Switch1 ↔ Switch2 with PCs
+
+Protocol or Technology:
+Switching
+
+Symptom:
+Hosts in the same VLAN on different switches cannot communicate although access ports appear correct.
+
+Evidence:
+show interfaces trunk, show interfaces switchport
+
+Provide the diagnosis in the following format:
+
+Root Cause:
+Confidence:
+Evidence Used:
+OSI Layer:
+Recommended Next Command:
+Suggested Fix Steps:
+
+Do not make unsupported assumptions.
+If the available evidence is insufficient, mention that additional troubleshooting is required.
+","Hosts in the same VLAN on different switches cannot communicate although access ports appear correct. show interfaces trunk, show interfaces switchport",C084,0.34,Low,Required VLAN is excluded from the permitted trunk VLAN range.,show interfaces trunk,Add the required VLAN to the allowed VLAN list on the trunk.,FALSE
+C020,Switching,Medium,Switch1–Switch2–PCs,A host cannot communicate with devices in its intended VLAN because its access port belongs to another VLAN.,show vtp status; show vlan brief,Incorrect VTP domain,Layer 2,VTP,High,show vtp status,Set the correct VTP domain on participating switches,Verify VLAN database propagation,"Confirm intended VLAN and IP network. Record the incorrect port mapping, correct only the affected interface, and verify connectivity.","
+You are a network troubleshooting assistant.
+
+Analyze the following network fault case using only the information provided.
+
+Network Topology:
+Switch1–Switch2–PCs
+
+Protocol or Technology:
+Switching
+
+Symptom:
+A host cannot communicate with devices in its intended VLAN because its access port belongs to another VLAN.
+
+Evidence:
+show vtp status; show vlan brief
+
+Provide the diagnosis in the following format:
+
+Root Cause:
+Confidence:
+Evidence Used:
+OSI Layer:
+Recommended Next Command:
+Suggested Fix Steps:
+
+Do not make unsupported assumptions.
+If the available evidence is insufficient, mention that additional troubleshooting is required.
+",A host cannot communicate with devices in its intended VLAN because its access port belongs to another VLAN. show vtp status; show vlan brief,C063,0.44,Medium,Incorrect switchport VLAN assignment places the hosts in different broadcast domains.,show vlan brief,Configure both required access interfaces using switchport access vlan 10.,FALSE
+C021,Switching,Medium,Switch1–Switch2–PCs,VLAN information created on one switch does not synchronize to the neighboring VTP switch.,show vtp status; show vlan brief,VTP server/client mode mismatch,Layer 2,VTP,High,show vtp status,Correct VTP operating modes and synchronize VLAN database,Verify VLAN appears,"Compare VTP domain, mode, and revision information. Verify the VLAN database after synchronization.","
+You are a network troubleshooting assistant.
+
+Analyze the following network fault case using only the information provided.
+
+Network Topology:
+Switch1–Switch2–PCs
+
+Protocol or Technology:
+Switching
+
+Symptom:
+VLAN information created on one switch does not synchronize to the neighboring VTP switch.
+
+Evidence:
+show vtp status; show vlan brief
+
+Provide the diagnosis in the following format:
+
+Root Cause:
+Confidence:
+Evidence Used:
+OSI Layer:
+Recommended Next Command:
+Suggested Fix Steps:
+
+Do not make unsupported assumptions.
+If the available evidence is insufficient, mention that additional troubleshooting is required.
+",VLAN information created on one switch does not synchronize to the neighboring VTP switch. show vtp status; show vlan brief,C020,0.4,Low,Incorrect VTP domain,show vtp status,Set the correct VTP domain on participating switches,FALSE
+C022,Switching,Medium,Switch1–Switch2–Switch3 triangle,"Connectivity works, but STP selects an inefficient path because an unintended switch becomes root bridge.",show spanning-tree,Incorrect STP root bridge,Layer 2,STP Root Bridge,Medium,show spanning-tree,Set intended root priority,Verify root bridge and forwarding path,Document the current root bridge and port roles. Change priority carefully and confirm the intended switch becomes root.,"
+You are a network troubleshooting assistant.
+
+Analyze the following network fault case using only the information provided.
+
+Network Topology:
+Switch1–Switch2–Switch3 triangle
+
+Protocol or Technology:
+Switching
+
+Symptom:
+Connectivity works, but STP selects an inefficient path because an unintended switch becomes root bridge.
+
+Evidence:
+show spanning-tree
+
+Provide the diagnosis in the following format:
+
+Root Cause:
+Confidence:
+Evidence Used:
+OSI Layer:
+Recommended Next Command:
+Suggested Fix Steps:
+
+Do not make unsupported assumptions.
+If the available evidence is insufficient, mention that additional troubleshooting is required.
+","Connectivity works, but STP selects an inefficient path because an unintended switch becomes root bridge. show spanning-tree",C014,0.41,Medium,Incorrect STP priority configured on SW3,show spanning-tree,Set SW3 VLAN 1 priority to 32768,FALSE
+C023,Switching Security,Hard,Access switch with end host,"An access interface becomes err-disabled after receiving BPDUs, causing loss of connectivity.",show spanning-tree; show running-config,PortFast configured on wrong port,Layer 2,STP PortFast,High,show spanning-tree,Apply PortFast only to intended edge/access port,Verify STP state,"Capture interface and STP evidence before recovery. Identify the BPDU source, correct the cause, then safely restore the port.","
+You are a network troubleshooting assistant.
+
+Analyze the following network fault case using only the information provided.
+
+Network Topology:
+Access switch with end host
+
+Protocol or Technology:
+Switching Security
+
+Symptom:
+An access interface becomes err-disabled after receiving BPDUs, causing loss of connectivity.
+
+Evidence:
+show spanning-tree; show running-config
+
+Provide the diagnosis in the following format:
+
+Root Cause:
+Confidence:
+Evidence Used:
+OSI Layer:
+Recommended Next Command:
+Suggested Fix Steps:
+
+Do not make unsupported assumptions.
+If the available evidence is insufficient, mention that additional troubleshooting is required.
+","An access interface becomes err-disabled after receiving BPDUs, causing loss of connectivity. show spanning-tree; show running-config",C022,0.26,Low,Incorrect STP root bridge,show spanning-tree,Set intended root priority,FALSE
+C024,Switch Security,Hard,SW1 with access PC,A switch port restricts or shuts down traffic after more MAC addresses are learned than allowed.,show interfaces status; show errdisable recovery; show spanning-tree,BPDU Guard triggered,Layer 2,BPDU Guard,High,show interfaces status,"Remove unintended BPDU source or correct BPDU Guard placement, then recover port",Verify interface is connected/forwarding,"Record port-security status, violation count, and secure MAC addresses. Confirm authorization before changing limits.","
+You are a network troubleshooting assistant.
+
+Analyze the following network fault case using only the information provided.
+
+Network Topology:
+SW1 with access PC
+
+Protocol or Technology:
+Switch Security
+
+Symptom:
+A switch port restricts or shuts down traffic after more MAC addresses are learned than allowed.
+
+Evidence:
+show interfaces status; show errdisable recovery; show spanning-tree
+
+Provide the diagnosis in the following format:
+
+Root Cause:
+Confidence:
+Evidence Used:
+OSI Layer:
+Recommended Next Command:
+Suggested Fix Steps:
+
+Do not make unsupported assumptions.
+If the available evidence is insufficient, mention that additional troubleshooting is required.
+",A switch port restricts or shuts down traffic after more MAC addresses are learned than allowed. show interfaces status; show errdisable recovery; show spanning-tree,C028,0.24,Low,Wrong violation mode,show port-security,Configure intended violation mode,FALSE
+C025,Switch Security,Hard,SW1–SW2–SW3 triangle,A replacement device cannot connect because the port still expects an old sticky MAC address.,show spanning-tree detail; show spanning-tree,Root Guard is blocking the port,Layer 2,Root Guard,High,show spanning-tree,Correct/remove Root Guard where inappropriate,Verify port returns to expected STP state,Collect the existing sticky MAC entry. Remove/update only the obsolete entry and verify the new authorized device.,"
+You are a network troubleshooting assistant.
+
+Analyze the following network fault case using only the information provided.
+
+Network Topology:
+SW1–SW2–SW3 triangle
+
+Protocol or Technology:
+Switch Security
+
+Symptom:
+A replacement device cannot connect because the port still expects an old sticky MAC address.
+
+Evidence:
+show spanning-tree detail; show spanning-tree
+
+Provide the diagnosis in the following format:
+
+Root Cause:
+Confidence:
+Evidence Used:
+OSI Layer:
+Recommended Next Command:
+Suggested Fix Steps:
+
+Do not make unsupported assumptions.
+If the available evidence is insufficient, mention that additional troubleshooting is required.
+",A replacement device cannot connect because the port still expects an old sticky MAC address. show spanning-tree detail; show spanning-tree,C024,0.24,Low,BPDU Guard triggered,show interfaces status,"Remove unintended BPDU source or correct BPDU Guard placement, then recover port",FALSE
+C026,Switching,Medium,PC1–SW1 access port,EtherChannel forms partially or fails because member interface settings are inconsistent.,show port-security; show interfaces status,Port-security maximum MAC limit exceeded,Layer 2,Port Security,High,show port-security,Set appropriate maximum or remove unauthorized device,Verify secure port and connectivity,"Compare channel members: switchport mode, VLAN/trunk settings, speed, duplex, and channel settings. Verify all members bundle.","
+You are a network troubleshooting assistant.
+
+Analyze the following network fault case using only the information provided.
+
+Network Topology:
+PC1–SW1 access port
+
+Protocol or Technology:
+Switching
+
+Symptom:
+EtherChannel forms partially or fails because member interface settings are inconsistent.
+
+Evidence:
+show port-security; show interfaces status
+
+Provide the diagnosis in the following format:
+
+Root Cause:
+Confidence:
+Evidence Used:
+OSI Layer:
+Recommended Next Command:
+Suggested Fix Steps:
+
+Do not make unsupported assumptions.
+If the available evidence is insufficient, mention that additional troubleshooting is required.
+",EtherChannel forms partially or fails because member interface settings are inconsistent. show port-security; show interfaces status,C027,0.38,Low,Sticky MAC violation,show port-security address,Clear/update sticky MAC configuration appropriately,FALSE
+C027,Switching,Medium,PC1–SW1 access port,EtherChannel negotiation fails because both ends use incompatible protocols or modes.,show port-security address; show port-security,Sticky MAC violation,Layer 2,Sticky MAC,High,show port-security address,Clear/update sticky MAC configuration appropriately,Verify correct secure MAC is learned,Check channel summary on both sides. Configure one compatible protocol and verify port-channel and members are bundled.,"
+You are a network troubleshooting assistant.
+
+Analyze the following network fault case using only the information provided.
+
+Network Topology:
+PC1–SW1 access port
+
+Protocol or Technology:
+Switching
+
+Symptom:
+EtherChannel negotiation fails because both ends use incompatible protocols or modes.
+
+Evidence:
+show port-security address; show port-security
+
+Provide the diagnosis in the following format:
+
+Root Cause:
+Confidence:
+Evidence Used:
+OSI Layer:
+Recommended Next Command:
+Suggested Fix Steps:
+
+Do not make unsupported assumptions.
+If the available evidence is insufficient, mention that additional troubleshooting is required.
+",EtherChannel negotiation fails because both ends use incompatible protocols or modes. show port-security address; show port-security,C026,0.38,Low,Port-security maximum MAC limit exceeded,show port-security,Set appropriate maximum or remove unauthorized device,FALSE
+C028,Switching,Medium,PC1–SW1 access port,"A device MAC address is learned on an unexpected switch port, suggesting incorrect physical connectivity.",show port-security,Wrong violation mode,Layer 2,Port Security Violation Mode,Medium,show port-security,Configure intended violation mode,Reconnect/test endpoint and verify behavior,"Generate traffic and capture the MAC table. Trace cabling, correct the physical path, and confirm the MAC learns on the intended port.","
+You are a network troubleshooting assistant.
+
+Analyze the following network fault case using only the information provided.
+
+Network Topology:
+PC1–SW1 access port
+
+Protocol or Technology:
+Switching
+
+Symptom:
+A device MAC address is learned on an unexpected switch port, suggesting incorrect physical connectivity.
+
+Evidence:
+show port-security
+
+Provide the diagnosis in the following format:
+
+Root Cause:
+Confidence:
+Evidence Used:
+OSI Layer:
+Recommended Next Command:
+Suggested Fix Steps:
+
+Do not make unsupported assumptions.
+If the available evidence is insufficient, mention that additional troubleshooting is required.
+","A device MAC address is learned on an unexpected switch port, suggesting incorrect physical connectivity. show port-security",C027,0.31,Low,Sticky MAC violation,show port-security address,Clear/update sticky MAC configuration appropriately,FALSE
+C029,Routing,Medium,PC1–SW1–PC2,"Local connectivity works, but unknown remote networks fail because no gateway of last resort exists.",show mac address-table; show running-config,Incorrect static MAC entry,Layer 2,MAC Address Table,Medium,show mac address-table,Correct/remove the incorrect static MAC entry,Verify MAC is learned on correct port,Record the routing table before fixing. Add only the required default route and verify remote reachability.,"
+You are a network troubleshooting assistant.
+
+Analyze the following network fault case using only the information provided.
+
+Network Topology:
+PC1–SW1–PC2
+
+Protocol or Technology:
+Routing
+
+Symptom:
+Local connectivity works, but unknown remote networks fail because no gateway of last resort exists.
+
+Evidence:
+show mac address-table; show running-config
+
+Provide the diagnosis in the following format:
+
+Root Cause:
+Confidence:
+Evidence Used:
+OSI Layer:
+Recommended Next Command:
+Suggested Fix Steps:
+
+Do not make unsupported assumptions.
+If the available evidence is insufficient, mention that additional troubleshooting is required.
+","Local connectivity works, but unknown remote networks fail because no gateway of last resort exists. show mac address-table; show running-config",C030,0.29,Low,Incorrect physical connection or MAC learning path,show mac address-table,Correct cabling/port assignment,FALSE
+C030,Routing,Medium,SW1 with multiple PCs,A static route exists but traffic fails because its next-hop address is incorrect or unreachable.,show mac address-table dynamic; show interfaces status,Incorrect physical connection or MAC learning path,Layer 2,CAM/MAC Learning,Medium,show mac address-table,Correct cabling/port assignment,Verify MAC appears on expected interface,"Validate next-hop reachability. Capture the incorrect route, replace it, and verify routing table plus end-to-end ping.","
+You are a network troubleshooting assistant.
+
+Analyze the following network fault case using only the information provided.
+
+Network Topology:
+SW1 with multiple PCs
+
+Protocol or Technology:
+Routing
+
+Symptom:
+A static route exists but traffic fails because its next-hop address is incorrect or unreachable.
+
+Evidence:
+show mac address-table dynamic; show interfaces status
+
+Provide the diagnosis in the following format:
+
+Root Cause:
+Confidence:
+Evidence Used:
+OSI Layer:
+Recommended Next Command:
+Suggested Fix Steps:
+
+Do not make unsupported assumptions.
+If the available evidence is insufficient, mention that additional troubleshooting is required.
+",A static route exists but traffic fails because its next-hop address is incorrect or unreachable. show mac address-table dynamic; show interfaces status,C048,0.38,Low,IPv6 Router Advertisement/SLAAC disabled,show ipv6 interface,Enable IPv6 forwarding/RA on the LAN interface as required,FALSE
+C031,Routing,Medium,LAN1–R1–R2–LAN2,Traffic uses the backup path while the primary path is healthy because administrative distances are incorrectly prioritized.,show ip route; show ip interface brief,Missing default route,Layer 3,Default Routing,High,show ip route,Configure correct default route,Ping remote network and verify route,Document both routes and AD values. Correct the floating route so it activates only when the primary path fails.,"
+You are a network troubleshooting assistant.
+
+Analyze the following network fault case using only the information provided.
+
+Network Topology:
+LAN1–R1–R2–LAN2
+
+Protocol or Technology:
+Routing
+
+Symptom:
+Traffic uses the backup path while the primary path is healthy because administrative distances are incorrectly prioritized.
+
+Evidence:
+show ip route; show ip interface brief
+
+Provide the diagnosis in the following format:
+
+Root Cause:
+Confidence:
+Evidence Used:
+OSI Layer:
+Recommended Next Command:
+Suggested Fix Steps:
+
+Do not make unsupported assumptions.
+If the available evidence is insufficient, mention that additional troubleshooting is required.
+",Traffic uses the backup path while the primary path is healthy because administrative distances are incorrectly prioritized. show ip route; show ip interface brief,C041,0.23,Low,Incorrect OSPF network type,show ip ospf interface,Configure matching/intended OSPF network type,FALSE
+C032,Dynamic Routing,Medium,R1 with primary and backup paths,A remote network is missing because one connected network is not advertised by RIP.,show ip route; show running-config,Incorrect administrative distance on floating static route,Layer 3,Administrative Distance,Medium,show ip route,Correct static-route administrative distance,Verify preferred route is installed,Check RIP participating networks. Add the missing advertisement and verify neighboring routers learn the route.,"
+You are a network troubleshooting assistant.
+
+Analyze the following network fault case using only the information provided.
+
+Network Topology:
+R1 with primary and backup paths
+
+Protocol or Technology:
+Dynamic Routing
+
+Symptom:
+A remote network is missing because one connected network is not advertised by RIP.
+
+Evidence:
+show ip route; show running-config
+
+Provide the diagnosis in the following format:
+
+Root Cause:
+Confidence:
+Evidence Used:
+OSI Layer:
+Recommended Next Command:
+Suggested Fix Steps:
+
+Do not make unsupported assumptions.
+If the available evidence is insufficient, mention that additional troubleshooting is required.
+",A remote network is missing because one connected network is not advertised by RIP. show ip route; show running-config,C033,0.36,Low,Incorrect static-route next hop,show ip route,Correct next-hop address,FALSE
+C033,Dynamic Routing,Medium,LAN1–R1–R2–LAN2,RIP routers do not exchange routes correctly because incompatible RIP versions are configured.,show ip route; show running-config,Incorrect static-route next hop,Layer 3,Static Routing,High,show ip route,Correct next-hop address,Ping destination and verify route,Capture protocol settings on both routers. Standardize the version and verify route exchange.,"
+You are a network troubleshooting assistant.
+
+Analyze the following network fault case using only the information provided.
+
+Network Topology:
+LAN1–R1–R2–LAN2
+
+Protocol or Technology:
+Dynamic Routing
+
+Symptom:
+RIP routers do not exchange routes correctly because incompatible RIP versions are configured.
+
+Evidence:
+show ip route; show running-config
+
+Provide the diagnosis in the following format:
+
+Root Cause:
+Confidence:
+Evidence Used:
+OSI Layer:
+Recommended Next Command:
+Suggested Fix Steps:
+
+Do not make unsupported assumptions.
+If the available evidence is insufficient, mention that additional troubleshooting is required.
+",RIP routers do not exchange routes correctly because incompatible RIP versions are configured. show ip route; show running-config,C091,0.36,Low,RIP updates are enabled on an interface where routing advertisements are unnecessary.,show ip protocols,Configure the unnecessary interface as passive for RIP updates.,FALSE
+C034,Dynamic Routing,Medium,R1–R2–R3,EIGRP neighbors do not form despite working physical and IP connectivity.,show ip protocols; show ip route,Missing RIP network advertisement,Layer 3,RIP v2,High,show ip protocols,Advertise the missing connected network in RIP,Verify RIP route appears,"Verify basic connectivity, compare EIGRP AS numbers, capture missing neighbors, then verify adjacency and routes.","
+You are a network troubleshooting assistant.
+
+Analyze the following network fault case using only the information provided.
+
+Network Topology:
+R1–R2–R3
+
+Protocol or Technology:
+Dynamic Routing
+
+Symptom:
+EIGRP neighbors do not form despite working physical and IP connectivity.
+
+Evidence:
+show ip protocols; show ip route
+
+Provide the diagnosis in the following format:
+
+Root Cause:
+Confidence:
+Evidence Used:
+OSI Layer:
+Recommended Next Command:
+Suggested Fix Steps:
+
+Do not make unsupported assumptions.
+If the available evidence is insufficient, mention that additional troubleshooting is required.
+",EIGRP neighbors do not form despite working physical and IP connectivity. show ip protocols; show ip route,C035,0.41,Medium,RIP auto-summary causing incorrect routing,show ip protocols,Disable auto-summary where appropriate,FALSE
+C035,Dynamic Routing,Medium,R1–R2–R3 with multiple subnets,EIGRP adjacency does not form on a transit link because hello packets are suppressed.,show ip protocols; show ip route,RIP auto-summary causing incorrect routing,Layer 3,RIP Auto-Summary,High,show ip protocols,Disable auto-summary where appropriate,Verify specific routes are learned,Identify the passive interface. Remove passive status only from the router-to-router link and verify adjacency.,"
+You are a network troubleshooting assistant.
+
+Analyze the following network fault case using only the information provided.
+
+Network Topology:
+R1–R2–R3 with multiple subnets
+
+Protocol or Technology:
+Dynamic Routing
+
+Symptom:
+EIGRP adjacency does not form on a transit link because hello packets are suppressed.
+
+Evidence:
+show ip protocols; show ip route
+
+Provide the diagnosis in the following format:
+
+Root Cause:
+Confidence:
+Evidence Used:
+OSI Layer:
+Recommended Next Command:
+Suggested Fix Steps:
+
+Do not make unsupported assumptions.
+If the available evidence is insufficient, mention that additional troubleshooting is required.
+",EIGRP adjacency does not form on a transit link because hello packets are suppressed. show ip protocols; show ip route,C034,0.41,Medium,Missing RIP network advertisement,show ip protocols,Advertise the missing connected network in RIP,FALSE
+C036,Dynamic Routing,Medium,R1–R2,A required interface does not participate in EIGRP because its network statement or wildcard is wrong.,show ip eigrp neighbors; show ip protocols,Mismatched EIGRP autonomous-system number,Layer 3,EIGRP,High,show ip protocols,Use the same EIGRP AS number on both routers,Verify neighbor adjacency,Compare interface IP addresses with EIGRP statements. Correct the wildcard precisely and avoid enabling unintended interfaces.,"
+You are a network troubleshooting assistant.
+
+Analyze the following network fault case using only the information provided.
+
+Network Topology:
+R1–R2
+
+Protocol or Technology:
+Dynamic Routing
+
+Symptom:
+A required interface does not participate in EIGRP because its network statement or wildcard is wrong.
+
+Evidence:
+show ip eigrp neighbors; show ip protocols
+
+Provide the diagnosis in the following format:
+
+Root Cause:
+Confidence:
+Evidence Used:
+OSI Layer:
+Recommended Next Command:
+Suggested Fix Steps:
+
+Do not make unsupported assumptions.
+If the available evidence is insufficient, mention that additional troubleshooting is required.
+",A required interface does not participate in EIGRP because its network statement or wildcard is wrong. show ip eigrp neighbors; show ip protocols,C034,0.38,Low,Missing RIP network advertisement,show ip protocols,Advertise the missing connected network in RIP,FALSE
+C037,Dynamic Routing,Hard,R1–R2–R3,OSPF routers fail to form adjacency because the shared interfaces use different area IDs.,show ip protocols; show ip eigrp topology,Incorrect EIGRP wildcard/network statement,Layer 3,EIGRP Network Statement,High,show ip protocols,Correct the EIGRP network statement,Verify route/neighbor information,Collect neighbor/interface information from both routers. Align the area and verify adjacency reaches FULL.,"
+You are a network troubleshooting assistant.
+
+Analyze the following network fault case using only the information provided.
+
+Network Topology:
+R1–R2–R3
+
+Protocol or Technology:
+Dynamic Routing
+
+Symptom:
+OSPF routers fail to form adjacency because the shared interfaces use different area IDs.
+
+Evidence:
+show ip protocols; show ip eigrp topology
+
+Provide the diagnosis in the following format:
+
+Root Cause:
+Confidence:
+Evidence Used:
+OSI Layer:
+Recommended Next Command:
+Suggested Fix Steps:
+
+Do not make unsupported assumptions.
+If the available evidence is insufficient, mention that additional troubleshooting is required.
+",OSPF routers fail to form adjacency because the shared interfaces use different area IDs. show ip protocols; show ip eigrp topology,C040,0.37,Low,Passive-interface blocks OSPF hellos,show ip ospf interface,Remove passive-interface from transit interface,FALSE
+C038,Dynamic Routing,Hard,R1–R2 EIGRP,An expected OSPF neighbor is missing because the transit interface is configured as passive.,show ip protocols; show ip eigrp neighbors,Passive-interface prevents EIGRP hellos,Layer 3,EIGRP Passive Interface,High,show ip protocols,Remove passive-interface from the EIGRP transit interface,Verify neighbor becomes FULL/established,Confirm which interface should form adjacency. Remove passive status only from the transit link.,"
+You are a network troubleshooting assistant.
+
+Analyze the following network fault case using only the information provided.
+
+Network Topology:
+R1–R2 EIGRP
+
+Protocol or Technology:
+Dynamic Routing
+
+Symptom:
+An expected OSPF neighbor is missing because the transit interface is configured as passive.
+
+Evidence:
+show ip protocols; show ip eigrp neighbors
+
+Provide the diagnosis in the following format:
+
+Root Cause:
+Confidence:
+Evidence Used:
+OSI Layer:
+Recommended Next Command:
+Suggested Fix Steps:
+
+Do not make unsupported assumptions.
+If the available evidence is insufficient, mention that additional troubleshooting is required.
+",An expected OSPF neighbor is missing because the transit interface is configured as passive. show ip protocols; show ip eigrp neighbors,C043,0.4,Low,Duplicate/conflicting OSPF router ID,show ip ospf,Assign unique router IDs and restart/reload OSPF process as needed,FALSE
+C039,Dynamic Routing,Hard,R1–R2 OSPF,An intended interface is not participating in OSPF because of an incorrect wildcard mask.,show ip ospf interface; show ip protocols,Wrong OSPF wildcard mask,Layer 3,OSPF Wildcard Mask,High,show ip ospf interface,Correct the OSPF network statement/wildcard,Verify adjacency and route,Match the interface address against the OSPF statement. Correct the wildcard and verify OSPF activation.,"
+You are a network troubleshooting assistant.
+
+Analyze the following network fault case using only the information provided.
+
+Network Topology:
+R1–R2 OSPF
+
+Protocol or Technology:
+Dynamic Routing
+
+Symptom:
+An intended interface is not participating in OSPF because of an incorrect wildcard mask.
+
+Evidence:
+show ip ospf interface; show ip protocols
+
+Provide the diagnosis in the following format:
+
+Root Cause:
+Confidence:
+Evidence Used:
+OSI Layer:
+Recommended Next Command:
+Suggested Fix Steps:
+
+Do not make unsupported assumptions.
+If the available evidence is insufficient, mention that additional troubleshooting is required.
+",An intended interface is not participating in OSPF because of an incorrect wildcard mask. show ip ospf interface; show ip protocols,C041,0.43,Medium,Incorrect OSPF network type,show ip ospf interface,Configure matching/intended OSPF network type,FALSE
+C040,Routing Security,Hard,R1–R2 OSPF,OSPF routers have IP connectivity but cannot establish adjacency because authentication settings differ.,show ip ospf interface; show ip protocols,Passive-interface blocks OSPF hellos,Layer 3,OSPF Passive Interface,High,show ip ospf interface,Remove passive-interface from transit interface,Verify adjacency,Compare authentication type and key settings on both ends. Apply matching settings and verify stable adjacency.,"
+You are a network troubleshooting assistant.
+
+Analyze the following network fault case using only the information provided.
+
+Network Topology:
+R1–R2 OSPF
+
+Protocol or Technology:
+Routing Security
+
+Symptom:
+OSPF routers have IP connectivity but cannot establish adjacency because authentication settings differ.
+
+Evidence:
+show ip ospf interface; show ip protocols
+
+Provide the diagnosis in the following format:
+
+Root Cause:
+Confidence:
+Evidence Used:
+OSI Layer:
+Recommended Next Command:
+Suggested Fix Steps:
+
+Do not make unsupported assumptions.
+If the available evidence is insufficient, mention that additional troubleshooting is required.
+",OSPF routers have IP connectivity but cannot establish adjacency because authentication settings differ. show ip ospf interface; show ip protocols,C039,0.39,Low,Wrong OSPF wildcard mask,show ip ospf interface,Correct the OSPF network statement/wildcard,FALSE
+C041,Dynamic Routing,Hard,R1–R2 OSPF Ethernet link,Traffic reaches the destination but follows a less efficient OSPF path due to an incorrect interface cost.,show ip ospf interface; show ip ospf neighbor,Incorrect OSPF network type,Layer 3,OSPF Network Type,Medium,show ip ospf interface,Configure matching/intended OSPF network type,Verify expected adjacency behavior,Capture current route and metrics. Adjust only the relevant cost and verify the preferred path changes.,"
+You are a network troubleshooting assistant.
+
+Analyze the following network fault case using only the information provided.
+
+Network Topology:
+R1–R2 OSPF Ethernet link
+
+Protocol or Technology:
+Dynamic Routing
+
+Symptom:
+Traffic reaches the destination but follows a less efficient OSPF path due to an incorrect interface cost.
+
+Evidence:
+show ip ospf interface; show ip ospf neighbor
+
+Provide the diagnosis in the following format:
+
+Root Cause:
+Confidence:
+Evidence Used:
+OSI Layer:
+Recommended Next Command:
+Suggested Fix Steps:
+
+Do not make unsupported assumptions.
+If the available evidence is insufficient, mention that additional troubleshooting is required.
+",Traffic reaches the destination but follows a less efficient OSPF path due to an incorrect interface cost. show ip ospf interface; show ip ospf neighbor,C043,0.43,Medium,Duplicate/conflicting OSPF router ID,show ip ospf,Assign unique router IDs and restart/reload OSPF process as needed,FALSE
+C042,First Hop Redundancy,Hard,R1–R2–R3 with two paths,Gateway redundancy fails because routers do not agree on HSRP group or virtual gateway settings.,show ip ospf interface; show ip route,Incorrect OSPF interface cost,Layer 3,OSPF Cost,Medium,show ip ospf interface,Correct interface OSPF cost,Verify routing table selects intended path,Document active/standby state and virtual IP. Standardize settings and test normal operation plus failover.,"
+You are a network troubleshooting assistant.
+
+Analyze the following network fault case using only the information provided.
+
+Network Topology:
+R1–R2–R3 with two paths
+
+Protocol or Technology:
+First Hop Redundancy
+
+Symptom:
+Gateway redundancy fails because routers do not agree on HSRP group or virtual gateway settings.
+
+Evidence:
+show ip ospf interface; show ip route
+
+Provide the diagnosis in the following format:
+
+Root Cause:
+Confidence:
+Evidence Used:
+OSI Layer:
+Recommended Next Command:
+Suggested Fix Steps:
+
+Do not make unsupported assumptions.
+If the available evidence is insufficient, mention that additional troubleshooting is required.
+",Gateway redundancy fails because routers do not agree on HSRP group or virtual gateway settings. show ip ospf interface; show ip route,C040,0.34,Low,Passive-interface blocks OSPF hellos,show ip ospf interface,Remove passive-interface from transit interface,FALSE
+C043,Routing,Hard,R1–R2 OSPF,A network is unreachable because the required router interface is administratively down.,show ip ospf; show ip ospf neighbor,Duplicate/conflicting OSPF router ID,Layer 3,OSPF Router ID,High,show ip ospf,Assign unique router IDs and restart/reload OSPF process as needed,Verify unique router IDs and adjacency,"Distinguish administrative shutdown from physical failure. Record initial status, enable the interface, and verify recovery.","
+You are a network troubleshooting assistant.
+
+Analyze the following network fault case using only the information provided.
+
+Network Topology:
+R1–R2 OSPF
+
+Protocol or Technology:
+Routing
+
+Symptom:
+A network is unreachable because the required router interface is administratively down.
+
+Evidence:
+show ip ospf; show ip ospf neighbor
+
+Provide the diagnosis in the following format:
+
+Root Cause:
+Confidence:
+Evidence Used:
+OSI Layer:
+Recommended Next Command:
+Suggested Fix Steps:
+
+Do not make unsupported assumptions.
+If the available evidence is insufficient, mention that additional troubleshooting is required.
+",A network is unreachable because the required router interface is administratively down. show ip ospf; show ip ospf neighbor,C041,0.43,Medium,Incorrect OSPF network type,show ip ospf interface,Configure matching/intended OSPF network type,FALSE
+C044,Advanced Routing,Expert,R1–ISP-R2 BGP,A BGP session remains inactive because remote AS does not match the peer's actual AS.,show ip bgp summary; show running-config,Incorrect BGP remote AS,Layer 3,eBGP,Critical,show ip bgp summary,Correct neighbor remote-AS configuration,Verify BGP state becomes Established,"Verify IP reachability, compare AS configuration, correct the neighbor statement, and confirm Established state.","
+You are a network troubleshooting assistant.
+
+Analyze the following network fault case using only the information provided.
+
+Network Topology:
+R1–ISP-R2 BGP
+
+Protocol or Technology:
+Advanced Routing
+
+Symptom:
+A BGP session remains inactive because remote AS does not match the peer's actual AS.
+
+Evidence:
+show ip bgp summary; show running-config
+
+Provide the diagnosis in the following format:
+
+Root Cause:
+Confidence:
+Evidence Used:
+OSI Layer:
+Recommended Next Command:
+Suggested Fix Steps:
+
+Do not make unsupported assumptions.
+If the available evidence is insufficient, mention that additional troubleshooting is required.
+",A BGP session remains inactive because remote AS does not match the peer's actual AS. show ip bgp summary; show running-config,C045,0.38,Low,BGP neighbor shutdown,show ip bgp summary,Remove neighbor shutdown,FALSE
+C045,Advanced Routing,Expert,R1–R2 BGP,BGP adjacency is established but a required prefix is absent from advertisements.,show ip bgp summary; show running-config,BGP neighbor shutdown,Layer 3,BGP Neighbor Shutdown,Critical,show ip bgp summary,Remove neighbor shutdown,Verify Established state,Check BGP and main routing tables. Ensure the exact prefix exists locally and verify peer advertisement.,"
+You are a network troubleshooting assistant.
+
+Analyze the following network fault case using only the information provided.
+
+Network Topology:
+R1–R2 BGP
+
+Protocol or Technology:
+Advanced Routing
+
+Symptom:
+BGP adjacency is established but a required prefix is absent from advertisements.
+
+Evidence:
+show ip bgp summary; show running-config
+
+Provide the diagnosis in the following format:
+
+Root Cause:
+Confidence:
+Evidence Used:
+OSI Layer:
+Recommended Next Command:
+Suggested Fix Steps:
+
+Do not make unsupported assumptions.
+If the available evidence is insufficient, mention that additional troubleshooting is required.
+",BGP adjacency is established but a required prefix is absent from advertisements. show ip bgp summary; show running-config,C044,0.38,Low,Incorrect BGP remote AS,show ip bgp summary,Correct neighbor remote-AS configuration,FALSE
+C046,Advanced Routing,Expert,R1–R2 BGP,A BGP route is visible but unusable because its advertised next hop is unreachable.,show ip bgp; show ip protocols,Missing BGP network advertisement,Layer 3,BGP Network Advertisement,High,show ip bgp,Advertise the intended network in BGP,Verify route appears in BGP table,Separate control-plane from data-plane troubleshooting. Verify next-hop reachability and confirm the route becomes usable.,"
+You are a network troubleshooting assistant.
+
+Analyze the following network fault case using only the information provided.
+
+Network Topology:
+R1–R2 BGP
+
+Protocol or Technology:
+Advanced Routing
+
+Symptom:
+A BGP route is visible but unusable because its advertised next hop is unreachable.
+
+Evidence:
+show ip bgp; show ip protocols
+
+Provide the diagnosis in the following format:
+
+Root Cause:
+Confidence:
+Evidence Used:
+OSI Layer:
+Recommended Next Command:
+Suggested Fix Steps:
+
+Do not make unsupported assumptions.
+If the available evidence is insufficient, mention that additional troubleshooting is required.
+",A BGP route is visible but unusable because its advertised next hop is unreachable. show ip bgp; show ip protocols,C045,0.37,Low,BGP neighbor shutdown,show ip bgp summary,Remove neighbor shutdown,FALSE
+C047,IPv6,Expert,R1–R2–R3 BGP,An IPv6 host does not obtain usable global addressing or a default route through SLAAC.,show ip bgp; show ip route,Incorrect BGP next-hop reachability/behavior,Layer 3,BGP Next Hop,High,show ip bgp,Correct next-hop handling and underlying reachability,Verify route is usable,"Check router IPv6 configuration and advertisements. Record host state, correct router settings, and verify address/gateway acquisition.","
+You are a network troubleshooting assistant.
+
+Analyze the following network fault case using only the information provided.
+
+Network Topology:
+R1–R2–R3 BGP
+
+Protocol or Technology:
+IPv6
+
+Symptom:
+An IPv6 host does not obtain usable global addressing or a default route through SLAAC.
+
+Evidence:
+show ip bgp; show ip route
+
+Provide the diagnosis in the following format:
+
+Root Cause:
+Confidence:
+Evidence Used:
+OSI Layer:
+Recommended Next Command:
+Suggested Fix Steps:
+
+Do not make unsupported assumptions.
+If the available evidence is insufficient, mention that additional troubleshooting is required.
+",An IPv6 host does not obtain usable global addressing or a default route through SLAAC. show ip bgp; show ip route,C046,0.27,Low,Missing BGP network advertisement,show ip bgp,Advertise the intended network in BGP,FALSE
+C048,IPv6 Routing,Medium,IPv6 LAN–R1,A remote IPv6 network is unreachable because a static route points to the wrong next hop or interface.,show ipv6 interface; show running-config,IPv6 Router Advertisement/SLAAC disabled,Layer 3,IPv6 SLAAC,High,show ipv6 interface,Enable IPv6 forwarding/RA on the LAN interface as required,Verify IPv6 address appears on host,Validate the IPv6 next-hop path. Correct the route precisely and verify table plus end-to-end connectivity.,"
+You are a network troubleshooting assistant.
+
+Analyze the following network fault case using only the information provided.
+
+Network Topology:
+IPv6 LAN–R1
+
+Protocol or Technology:
+IPv6 Routing
+
+Symptom:
+A remote IPv6 network is unreachable because a static route points to the wrong next hop or interface.
+
+Evidence:
+show ipv6 interface; show running-config
+
+Provide the diagnosis in the following format:
+
+Root Cause:
+Confidence:
+Evidence Used:
+OSI Layer:
+Recommended Next Command:
+Suggested Fix Steps:
+
+Do not make unsupported assumptions.
+If the available evidence is insufficient, mention that additional troubleshooting is required.
+",A remote IPv6 network is unreachable because a static route points to the wrong next hop or interface. show ipv6 interface; show running-config,C030,0.38,Low,Incorrect physical connection or MAC learning path,show mac address-table,Correct cabling/port assignment,FALSE
+C049,Network Security,Medium,IPv6 LAN–R1–R2–LAN,A legitimate source is blocked even though basic routing is correct.,show ipv6 route; show ipv6 interface,Incorrect IPv6 static-route next hop,Layer 3,IPv6 Static Routing,High,show ipv6 route,Correct IPv6 next-hop/static route,Verify IPv6 ping,"Inspect ACL entries, sequence logic, and placement. Preserve intended security policy while correcting the blocking rule.","
+You are a network troubleshooting assistant.
+
+Analyze the following network fault case using only the information provided.
+
+Network Topology:
+IPv6 LAN–R1–R2–LAN
+
+Protocol or Technology:
+Network Security
+
+Symptom:
+A legitimate source is blocked even though basic routing is correct.
+
+Evidence:
+show ipv6 route; show ipv6 interface
+
+Provide the diagnosis in the following format:
+
+Root Cause:
+Confidence:
+Evidence Used:
+OSI Layer:
+Recommended Next Command:
+Suggested Fix Steps:
+
+Do not make unsupported assumptions.
+If the available evidence is insufficient, mention that additional troubleshooting is required.
+",A legitimate source is blocked even though basic routing is correct. show ipv6 route; show ipv6 interface,C048,0.37,Low,IPv6 Router Advertisement/SLAAC disabled,show ipv6 interface,Enable IPv6 forwarding/RA on the LAN interface as required,FALSE
+C050,Network Security,Medium,R1–R2 OSPFv3,"Connectivity exists, but an application fails because an extended ACL uses the wrong protocol or port.",show ipv6 ospf neighbor; show ipv6 ospf interface,OSPFv3 process/interface configuration missing,Layer 3,OSPFv3,High,show ipv6 ospf neighbor,Enable/correct OSPFv3 on the transit interface,Verify OSPFv3 neighbor and route,"Confirm required protocol/port. Capture the rule, correct the service match, and verify intended traffic.","
+You are a network troubleshooting assistant.
+
+Analyze the following network fault case using only the information provided.
+
+Network Topology:
+R1–R2 OSPFv3
+
+Protocol or Technology:
+Network Security
+
+Symptom:
+Connectivity exists, but an application fails because an extended ACL uses the wrong protocol or port.
+
+Evidence:
+show ipv6 ospf neighbor; show ipv6 ospf interface
+
+Provide the diagnosis in the following format:
+
+Root Cause:
+Confidence:
+Evidence Used:
+OSI Layer:
+Recommended Next Command:
+Suggested Fix Steps:
+
+Do not make unsupported assumptions.
+If the available evidence is insufficient, mention that additional troubleshooting is required.
+","Connectivity exists, but an application fails because an extended ACL uses the wrong protocol or port. show ipv6 ospf neighbor; show ipv6 ospf interface",C048,0.35,Low,IPv6 Router Advertisement/SLAAC disabled,show ipv6 interface,Enable IPv6 forwarding/RA on the LAN interface as required,FALSE
+C051,Network Security,Medium,PC1–R1–Server,ACL rules appear correct but traffic is blocked because the ACL is applied in the wrong direction.,show access-lists; show running-config,Standard ACL blocks legitimate source,Layer 3,Standard ACL,High,show access-lists,Correct ACL source/permit rule,Verify permitted ping/application access,Identify interface and direction exactly. Move the ACL carefully and retest both permitted and denied traffic.,"
+You are a network troubleshooting assistant.
+
+Analyze the following network fault case using only the information provided.
+
+Network Topology:
+PC1–R1–Server
+
+Protocol or Technology:
+Network Security
+
+Symptom:
+ACL rules appear correct but traffic is blocked because the ACL is applied in the wrong direction.
+
+Evidence:
+show access-lists; show running-config
+
+Provide the diagnosis in the following format:
+
+Root Cause:
+Confidence:
+Evidence Used:
+OSI Layer:
+Recommended Next Command:
+Suggested Fix Steps:
+
+Do not make unsupported assumptions.
+If the available evidence is insufficient, mention that additional troubleshooting is required.
+",ACL rules appear correct but traffic is blocked because the ACL is applied in the wrong direction. show access-lists; show running-config,C053,0.31,Low,ACL applied in wrong direction,show ip interface,Apply ACL inbound/outbound on intended interface/direction,FALSE
+C052,NAT,Medium,Client–Router–Server,Internal hosts cannot create translations because NAT inside/outside roles are assigned to wrong interfaces.,show access-lists; show running-config,Extended ACL has wrong protocol/port rule,Layer 3/4,Extended ACL,High,show access-lists,Correct protocol/port permit/deny rule,Verify required service and blocked service behavior,Document NAT roles and statistics. Correct role assignment and verify translations with generated traffic.,"
+You are a network troubleshooting assistant.
+
+Analyze the following network fault case using only the information provided.
+
+Network Topology:
+Client–Router–Server
+
+Protocol or Technology:
+NAT
+
+Symptom:
+Internal hosts cannot create translations because NAT inside/outside roles are assigned to wrong interfaces.
+
+Evidence:
+show access-lists; show running-config
+
+Provide the diagnosis in the following format:
+
+Root Cause:
+Confidence:
+Evidence Used:
+OSI Layer:
+Recommended Next Command:
+Suggested Fix Steps:
+
+Do not make unsupported assumptions.
+If the available evidence is insufficient, mention that additional troubleshooting is required.
+",Internal hosts cannot create translations because NAT inside/outside roles are assigned to wrong interfaces. show access-lists; show running-config,C053,0.54,Medium,ACL applied in wrong direction,show ip interface,Apply ACL inbound/outbound on intended interface/direction,FALSE
+C053,NAT,Hard,LAN–R1–Server,Internal hosts fail to access outside networks because the NAT ACL does not match the inside subnet.,show ip interface; show access-lists,ACL applied in wrong direction,Layer 3,ACL Direction,High,show ip interface,Apply ACL inbound/outbound on intended interface/direction,Verify traffic behavior,Compare addressing plan with NAT ACL. Correct network/wildcard and verify eligible hosts translate.,"
+You are a network troubleshooting assistant.
+
+Analyze the following network fault case using only the information provided.
+
+Network Topology:
+LAN–R1–Server
+
+Protocol or Technology:
+NAT
+
+Symptom:
+Internal hosts fail to access outside networks because the NAT ACL does not match the inside subnet.
+
+Evidence:
+show ip interface; show access-lists
+
+Provide the diagnosis in the following format:
+
+Root Cause:
+Confidence:
+Evidence Used:
+OSI Layer:
+Recommended Next Command:
+Suggested Fix Steps:
+
+Do not make unsupported assumptions.
+If the available evidence is insufficient, mention that additional troubleshooting is required.
+",Internal hosts fail to access outside networks because the NAT ACL does not match the inside subnet. show ip interface; show access-lists,C052,0.54,Medium,Extended ACL has wrong protocol/port rule,show access-lists,Correct protocol/port permit/deny rule,FALSE
+C054,NAT,Medium,Inside LAN–R1–Outside server,Multiple hosts cannot reliably share a public address because NAT is configured without overload.,show ip nat translations; show ip nat statistics; show running-config,Incorrect inside/outside interface designation,Layer 3,Static NAT,High,show ip nat statistics,Correct `ip nat inside` and `ip nat outside` placement,Verify translation and connectivity,Confirm translation behavior. Add PAT overload and verify simultaneous translations for multiple hosts.,"
+You are a network troubleshooting assistant.
+
+Analyze the following network fault case using only the information provided.
+
+Network Topology:
+Inside LAN–R1–Outside server
+
+Protocol or Technology:
+NAT
+
+Symptom:
+Multiple hosts cannot reliably share a public address because NAT is configured without overload.
+
+Evidence:
+show ip nat translations; show ip nat statistics; show running-config
+
+Provide the diagnosis in the following format:
+
+Root Cause:
+Confidence:
+Evidence Used:
+OSI Layer:
+Recommended Next Command:
+Suggested Fix Steps:
+
+Do not make unsupported assumptions.
+If the available evidence is insufficient, mention that additional troubleshooting is required.
+",Multiple hosts cannot reliably share a public address because NAT is configured without overload. show ip nat translations; show ip nat statistics; show running-config,C055,0.49,Medium,NAT pool exhausted,show ip nat statistics,Increase/adjust address pool or use PAT as appropriate,FALSE
+C055,DHCP,Medium,Multiple inside PCs–R1–Outside,A client receives an IP address but cannot reach remote networks because DHCP supplies the wrong default gateway.,show ip nat translations; show ip nat statistics,NAT pool exhausted,Layer 3,Dynamic NAT Pool,High,show ip nat statistics,Increase/adjust address pool or use PAT as appropriate,Verify additional clients translate,"Record full client configuration. Correct DHCP gateway option, renew lease, and verify gateway plus remote connectivity.","
+You are a network troubleshooting assistant.
+
+Analyze the following network fault case using only the information provided.
+
+Network Topology:
+Multiple inside PCs–R1–Outside
+
+Protocol or Technology:
+DHCP
+
+Symptom:
+A client receives an IP address but cannot reach remote networks because DHCP supplies the wrong default gateway.
+
+Evidence:
+show ip nat translations; show ip nat statistics
+
+Provide the diagnosis in the following format:
+
+Root Cause:
+Confidence:
+Evidence Used:
+OSI Layer:
+Recommended Next Command:
+Suggested Fix Steps:
+
+Do not make unsupported assumptions.
+If the available evidence is insufficient, mention that additional troubleshooting is required.
+",A client receives an IP address but cannot reach remote networks because DHCP supplies the wrong default gateway. show ip nat translations; show ip nat statistics,C054,0.49,Medium,Incorrect inside/outside interface designation,show ip nat statistics,Correct `ip nat inside` and `ip nat outside` placement,FALSE
+C056,DHCP,Hard,Multiple inside PCs–R1–ISP,New clients fail to obtain addresses while earlier clients work because the DHCP pool is exhausted.,show ip nat translations; show ip nat statistics,Missing PAT overload,Layer 3,PAT/NAT Overload,High,show ip nat statistics,Configure PAT with overload,Verify multiple translations,"Inspect pool utilization and leases. Record exhaustion, expand capacity or reclaim addresses, and verify a new lease.","
+You are a network troubleshooting assistant.
+
+Analyze the following network fault case using only the information provided.
+
+Network Topology:
+Multiple inside PCs–R1–ISP
+
+Protocol or Technology:
+DHCP
+
+Symptom:
+New clients fail to obtain addresses while earlier clients work because the DHCP pool is exhausted.
+
+Evidence:
+show ip nat translations; show ip nat statistics
+
+Provide the diagnosis in the following format:
+
+Root Cause:
+Confidence:
+Evidence Used:
+OSI Layer:
+Recommended Next Command:
+Suggested Fix Steps:
+
+Do not make unsupported assumptions.
+If the available evidence is insufficient, mention that additional troubleshooting is required.
+",New clients fail to obtain addresses while earlier clients work because the DHCP pool is exhausted. show ip nat translations; show ip nat statistics,C055,0.4,Low,NAT pool exhausted,show ip nat statistics,Increase/adjust address pool or use PAT as appropriate,FALSE
+C057,Network Services,Medium,R1–NTP Server,A server is reachable by IP but not hostname because the client uses an incorrect DNS server.,show clock; show ntp status; show ntp associations,Incorrect NTP server configuration,Layer 7,NTP,Medium,show ntp associations,Correct NTP server address/configuration,Verify NTP synchronization,"Use IP connectivity to isolate DNS. Capture DNS settings, correct server address, and verify hostname resolution.","
+You are a network troubleshooting assistant.
+
+Analyze the following network fault case using only the information provided.
+
+Network Topology:
+R1–NTP Server
+
+Protocol or Technology:
+Network Services
+
+Symptom:
+A server is reachable by IP but not hostname because the client uses an incorrect DNS server.
+
+Evidence:
+show clock; show ntp status; show ntp associations
+
+Provide the diagnosis in the following format:
+
+Root Cause:
+Confidence:
+Evidence Used:
+OSI Layer:
+Recommended Next Command:
+Suggested Fix Steps:
+
+Do not make unsupported assumptions.
+If the available evidence is insufficient, mention that additional troubleshooting is required.
+",A server is reachable by IP but not hostname because the client uses an incorrect DNS server. show clock; show ntp status; show ntp associations,C058,0.36,Low,Incorrect SNMP community string,show running-config,Correct SNMP community/access configuration,FALSE
+C058,Network Services,Medium,Router–SNMP Manager,Device time remains unsynchronized because the configured NTP server is incorrect or unreachable.,show running-config; show snmp,Incorrect SNMP community string,Layer 7,SNMP,Medium,show running-config,Correct SNMP community/access configuration,Verify SNMP polling,"Check reachability before NTP status. Record association state, correct server configuration, and verify synchronization.","
+You are a network troubleshooting assistant.
+
+Analyze the following network fault case using only the information provided.
+
+Network Topology:
+Router–SNMP Manager
+
+Protocol or Technology:
+Network Services
+
+Symptom:
+Device time remains unsynchronized because the configured NTP server is incorrect or unreachable.
+
+Evidence:
+show running-config; show snmp
+
+Provide the diagnosis in the following format:
+
+Root Cause:
+Confidence:
+Evidence Used:
+OSI Layer:
+Recommended Next Command:
+Suggested Fix Steps:
+
+Do not make unsupported assumptions.
+If the available evidence is insufficient, mention that additional troubleshooting is required.
+",Device time remains unsynchronized because the configured NTP server is incorrect or unreachable. show running-config; show snmp,C057,0.36,Low,Incorrect NTP server configuration,show ntp associations,Correct NTP server address/configuration,FALSE
+C059,Network Services,Medium,R1–Syslog Server,Device events occur but no logs reach the centralized Syslog server because logging destination is incorrect.,show logging; show running-config,Wrong syslog destination address,Layer 7,Syslog,Medium,show logging,Correct logging host/destination configuration,Generate event and verify server receives log,Confirm Syslog reachability and configuration. Correct destination and trigger a test event to verify reception.,"
+You are a network troubleshooting assistant.
+
+Analyze the following network fault case using only the information provided.
+
+Network Topology:
+R1–Syslog Server
+
+Protocol or Technology:
+Network Services
+
+Symptom:
+Device events occur but no logs reach the centralized Syslog server because logging destination is incorrect.
+
+Evidence:
+show logging; show running-config
+
+Provide the diagnosis in the following format:
+
+Root Cause:
+Confidence:
+Evidence Used:
+OSI Layer:
+Recommended Next Command:
+Suggested Fix Steps:
+
+Do not make unsupported assumptions.
+If the available evidence is insufficient, mention that additional troubleshooting is required.
+",Device events occur but no logs reach the centralized Syslog server because logging destination is incorrect. show logging; show running-config,C058,0.26,Low,Incorrect SNMP community string,show running-config,Correct SNMP community/access configuration,FALSE
+C060,Wireless Security,Hard,Laptop–AP–Router,A client detects the SSID but cannot authenticate because its security settings differ from the access point.,show running-config on AP/router; client wireless settings,Incorrect WPA2/WPA3 security key/mode,Layer 2,Wireless Security,High,Check AP wireless security configuration,Match SSID/security mode/key on client and AP,Reconnect client and verify IP/connectivity,"Compare SSID, authentication, encryption, and credentials systematically. Correct mismatch and verify association, IP, gateway, and connectivity.","
+You are a network troubleshooting assistant.
+
+Analyze the following network fault case using only the information provided.
+
+Network Topology:
+Laptop–AP–Router
+
+Protocol or Technology:
+Wireless Security
+
+Symptom:
+A client detects the SSID but cannot authenticate because its security settings differ from the access point.
+
+Evidence:
+show running-config on AP/router; client wireless settings
+
+Provide the diagnosis in the following format:
+
+Root Cause:
+Confidence:
+Evidence Used:
+OSI Layer:
+Recommended Next Command:
+Suggested Fix Steps:
+
+Do not make unsupported assumptions.
+If the available evidence is insufficient, mention that additional troubleshooting is required.
+",A client detects the SSID but cannot authenticate because its security settings differ from the access point. show running-config on AP/router; client wireless settings,C040,0.21,Low,Passive-interface blocks OSPF hellos,show ip ospf interface,Remove passive-interface from transit interface,FALSE
+C061,Ethernet,Easy,PC1 — Switch1,PC1 is physically connected to Switch1 but cannot communicate with any device on the network. The interface appears inactive despite the cable being connected.,Switch1 interface status shows down/down or err-disabled condition. Interface counters may show no received frames.,Faulty Ethernet cable or incorrect physical interface connection prevents Layer 1 communication.,Layer 1–2,Ethernet Physical Link,Medium,show interfaces status,Replace the faulty cable and reconnect PC1 to the correct Switch1 Ethernet port.,Confirm the interface changes to up/up and verify successful ping from PC1 to another host.,Check physical connectivity first before investigating IP addressing or routing problems.,"
+You are a network troubleshooting assistant.
+
+Analyze the following network fault case using only the information provided.
+
+Network Topology:
+PC1 — Switch1
+
+Protocol or Technology:
+Ethernet
+
+Symptom:
+PC1 is physically connected to Switch1 but cannot communicate with any device on the network. The interface appears inactive despite the cable being connected.
+
+Evidence:
+Switch1 interface status shows down/down or err-disabled condition. Interface counters may show no received frames.
+
+Provide the diagnosis in the following format:
+
+Root Cause:
+Confidence:
+Evidence Used:
+OSI Layer:
+Recommended Next Command:
+Suggested Fix Steps:
+
+Do not make unsupported assumptions.
+If the available evidence is insufficient, mention that additional troubleshooting is required.
+",PC1 is physically connected to Switch1 but cannot communicate with any device on the network. The interface appears inactive despite the cable being connected. Switch1 interface status shows down/down or err-disabled condition. Interface counters may show no received frames.,C083,0.23,Low,Access port was not updated after a planned VLAN assignment change.,show vlan brief,Assign the correct access VLAN to the PC interface.,FALSE
+C062,ARP,Medium,PC1 — Switch1 — Router1,PC1 has a correct IPv4 address and default gateway but cannot reach Router1 or other remote networks.,arp -a on PC1 shows an incomplete or incorrect MAC entry for the default gateway address.,ARP resolution failure prevents PC1 from learning the MAC address of its gateway.,Layer 2–3,Address Resolution Protocol,High,arp -a,Clear the incorrect ARP entry and verify Layer 2 connectivity between PC1 and Router1.,Ping the gateway again and confirm a valid gateway MAC address appears in the ARP table.,ARP converts a known IPv4 address into the required destination MAC address for local delivery.,"
+You are a network troubleshooting assistant.
+
+Analyze the following network fault case using only the information provided.
+
+Network Topology:
+PC1 — Switch1 — Router1
+
+Protocol or Technology:
+ARP
+
+Symptom:
+PC1 has a correct IPv4 address and default gateway but cannot reach Router1 or other remote networks.
+
+Evidence:
+arp -a on PC1 shows an incomplete or incorrect MAC entry for the default gateway address.
+
+Provide the diagnosis in the following format:
+
+Root Cause:
+Confidence:
+Evidence Used:
+OSI Layer:
+Recommended Next Command:
+Suggested Fix Steps:
+
+Do not make unsupported assumptions.
+If the available evidence is insufficient, mention that additional troubleshooting is required.
+",PC1 has a correct IPv4 address and default gateway but cannot reach Router1 or other remote networks. arp -a on PC1 shows an incomplete or incorrect MAC entry for the default gateway address.,C055,0.32,Low,NAT pool exhausted,show ip nat statistics,Increase/adjust address pool or use PAT as appropriate,FALSE
+C063,VLAN,Easy,PC1(VLAN10) — Switch1 — PC2(VLAN10),PC1 and PC2 are intended to communicate in VLAN 10 but ping fails even though both devices are connected to the same switch.,show vlan brief shows one of the access ports assigned to VLAN 1 instead of VLAN 10.,Incorrect switchport VLAN assignment places the hosts in different broadcast domains.,Layer 2,VLAN Segmentation,Medium,show vlan brief,Configure both required access interfaces using switchport access vlan 10.,Verify both ports belong to VLAN 10 and confirm successful ping between PC1 and PC2.,Devices must belong to the same VLAN and IP subnet for direct Layer 2 communication.,"
+You are a network troubleshooting assistant.
+
+Analyze the following network fault case using only the information provided.
+
+Network Topology:
+PC1(VLAN10) — Switch1 — PC2(VLAN10)
+
+Protocol or Technology:
+VLAN
+
+Symptom:
+PC1 and PC2 are intended to communicate in VLAN 10 but ping fails even though both devices are connected to the same switch.
+
+Evidence:
+show vlan brief shows one of the access ports assigned to VLAN 1 instead of VLAN 10.
+
+Provide the diagnosis in the following format:
+
+Root Cause:
+Confidence:
+Evidence Used:
+OSI Layer:
+Recommended Next Command:
+Suggested Fix Steps:
+
+Do not make unsupported assumptions.
+If the available evidence is insufficient, mention that additional troubleshooting is required.
+",PC1 and PC2 are intended to communicate in VLAN 10 but ping fails even though both devices are connected to the same switch. show vlan brief shows one of the access ports assigned to VLAN 1 instead of VLAN 10.,C020,0.44,Medium,Incorrect VTP domain,show vtp status,Set the correct VTP domain on participating switches,FALSE
+C064,IEEE 802.1Q,Medium,Switch1 — Switch2 with VLAN10 and VLAN20,Devices in VLAN 10 work locally on each switch but cannot communicate across Switch1 and Switch2.,show interfaces trunk shows the inter-switch interface is operating as an access port instead of a trunk.,The link between switches is not configured for IEEE 802.1Q VLAN tagging.,Layer 2,802.1Q Trunking,High,show interfaces trunk,Configure the inter-switch link as a trunk and allow the required VLANs.,Confirm trunk status is active and test communication between same-VLAN hosts on different switches.,Trunk links carry traffic for multiple VLANs by attaching VLAN identification tags to frames.,"
+You are a network troubleshooting assistant.
+
+Analyze the following network fault case using only the information provided.
+
+Network Topology:
+Switch1 — Switch2 with VLAN10 and VLAN20
+
+Protocol or Technology:
+IEEE 802.1Q
+
+Symptom:
+Devices in VLAN 10 work locally on each switch but cannot communicate across Switch1 and Switch2.
+
+Evidence:
+show interfaces trunk shows the inter-switch interface is operating as an access port instead of a trunk.
+
+Provide the diagnosis in the following format:
+
+Root Cause:
+Confidence:
+Evidence Used:
+OSI Layer:
+Recommended Next Command:
+Suggested Fix Steps:
+
+Do not make unsupported assumptions.
+If the available evidence is insufficient, mention that additional troubleshooting is required.
+",Devices in VLAN 10 work locally on each switch but cannot communicate across Switch1 and Switch2. show interfaces trunk shows the inter-switch interface is operating as an access port instead of a trunk.,C084,0.38,Low,Required VLAN is excluded from the permitted trunk VLAN range.,show interfaces trunk,Add the required VLAN to the allowed VLAN list on the trunk.,FALSE
+C065,RSTP,Medium,Switch1 — Switch2 — Switch3 Redundant Triangle,"Network connectivity becomes unstable after adding redundant links between switches, with ports frequently changing forwarding states.",show spanning-tree displays unexpected port roles or incorrect RSTP configuration on one switch.,"RSTP is disabled or inconsistent, causing improper handling of redundant Layer 2 paths.",Layer 2,Rapid Spanning Tree Protocol,High,show spanning-tree,Enable Rapid PVST or configure consistent RSTP mode across all participating switches.,Confirm stable root bridge selection and verify redundant ports have correct forwarding or alternate roles.,RSTP provides faster convergence than traditional STP after topology changes.,"
+You are a network troubleshooting assistant.
+
+Analyze the following network fault case using only the information provided.
+
+Network Topology:
+Switch1 — Switch2 — Switch3 Redundant Triangle
+
+Protocol or Technology:
+RSTP
+
+Symptom:
+Network connectivity becomes unstable after adding redundant links between switches, with ports frequently changing forwarding states.
+
+Evidence:
+show spanning-tree displays unexpected port roles or incorrect RSTP configuration on one switch.
+
+Provide the diagnosis in the following format:
+
+Root Cause:
+Confidence:
+Evidence Used:
+OSI Layer:
+Recommended Next Command:
+Suggested Fix Steps:
+
+Do not make unsupported assumptions.
+If the available evidence is insufficient, mention that additional troubleshooting is required.
+","Network connectivity becomes unstable after adding redundant links between switches, with ports frequently changing forwarding states. show spanning-tree displays unexpected port roles or incorrect RSTP configuration on one switch.",C085,0.25,Low,Normal STP operation has blocked a redundant path to prevent a Layer 2 loop.,show spanning-tree,No corrective action is required unless topology design requires a different root bridge.,FALSE
+C066,IPv4,Easy,PC1 — Switch1 — Router1,PC1 cannot communicate with its configured default gateway although the Ethernet connection is operational.,PC1 address is 192.168.10.10/24 while the gateway interface is configured in network 192.168.20.0/24.,Incorrect IPv4 subnet configuration places the host and gateway in different IP networks.,Layer 3,IPv4 Addressing,High,ipconfig,Correct the PC1 IPv4 address and subnet mask so they match the gateway network.,Ping the default gateway and verify that packets are successfully delivered.,"Always verify IP address, subnet mask, and default gateway before troubleshooting higher-layer protocols.","
+You are a network troubleshooting assistant.
+
+Analyze the following network fault case using only the information provided.
+
+Network Topology:
+PC1 — Switch1 — Router1
+
+Protocol or Technology:
+IPv4
+
+Symptom:
+PC1 cannot communicate with its configured default gateway although the Ethernet connection is operational.
+
+Evidence:
+PC1 address is 192.168.10.10/24 while the gateway interface is configured in network 192.168.20.0/24.
+
+Provide the diagnosis in the following format:
+
+Root Cause:
+Confidence:
+Evidence Used:
+OSI Layer:
+Recommended Next Command:
+Suggested Fix Steps:
+
+Do not make unsupported assumptions.
+If the available evidence is insufficient, mention that additional troubleshooting is required.
+",PC1 cannot communicate with its configured default gateway although the Ethernet connection is operational. PC1 address is 192.168.10.10/24 while the gateway interface is configured in network 192.168.20.0/24.,C004,0.34,Low,DHCP pool configured with wrong network,show ip dhcp pool,Configure DHCP pool for 192.168.10.0/24,FALSE
+C067,ICMP,Medium,PC1 — Router1 — Router2 — PC2,PC1 can access some network services but ICMP ping requests to PC2 consistently fail.,ACL or interface configuration shows ICMP echo packets being denied while other IP traffic is permitted.,ICMP traffic is specifically blocked by a filtering rule or access control configuration.,Layer 3,Internet Control Message Protocol,Medium,show access-lists,Modify the ACL to permit required ICMP traffic or remove the incorrect deny statement.,Run ping and traceroute tests to confirm ICMP connectivity is restored.,"ICMP is commonly used for connectivity testing, error reporting, ping, and traceroute operations.","
+You are a network troubleshooting assistant.
+
+Analyze the following network fault case using only the information provided.
+
+Network Topology:
+PC1 — Router1 — Router2 — PC2
+
+Protocol or Technology:
+ICMP
+
+Symptom:
+PC1 can access some network services but ICMP ping requests to PC2 consistently fail.
+
+Evidence:
+ACL or interface configuration shows ICMP echo packets being denied while other IP traffic is permitted.
+
+Provide the diagnosis in the following format:
+
+Root Cause:
+Confidence:
+Evidence Used:
+OSI Layer:
+Recommended Next Command:
+Suggested Fix Steps:
+
+Do not make unsupported assumptions.
+If the available evidence is insufficient, mention that additional troubleshooting is required.
+",PC1 can access some network services but ICMP ping requests to PC2 consistently fail. ACL or interface configuration shows ICMP echo packets being denied while other IP traffic is permitted.,C053,0.17,Low,ACL applied in wrong direction,show ip interface,Apply ACL inbound/outbound on intended interface/direction,FALSE
+C068,TCP,Medium,PC1 — Router1 — Server1,A TCP-based application cannot establish a session with Server1 even though basic IP connectivity is successful.,"Ping succeeds, but TCP connection attempts fail because the destination port is closed or blocked.",TCP three-way handshake cannot complete due to unavailable or filtered destination service port.,Layer 4,TCP Connection Establishment,High,telnet <server-ip> <port>,Enable the required service or allow the TCP port through the firewall or ACL.,Confirm the TCP connection establishes successfully and the application becomes reachable.,"TCP requires SYN, SYN-ACK, and ACK messages to establish a reliable connection.","
+You are a network troubleshooting assistant.
+
+Analyze the following network fault case using only the information provided.
+
+Network Topology:
+PC1 — Router1 — Server1
+
+Protocol or Technology:
+TCP
+
+Symptom:
+A TCP-based application cannot establish a session with Server1 even though basic IP connectivity is successful.
+
+Evidence:
+Ping succeeds, but TCP connection attempts fail because the destination port is closed or blocked.
+
+Provide the diagnosis in the following format:
+
+Root Cause:
+Confidence:
+Evidence Used:
+OSI Layer:
+Recommended Next Command:
+Suggested Fix Steps:
+
+Do not make unsupported assumptions.
+If the available evidence is insufficient, mention that additional troubleshooting is required.
+","A TCP-based application cannot establish a session with Server1 even though basic IP connectivity is successful. Ping succeeds, but TCP connection attempts fail because the destination port is closed or blocked.",C049,0.26,Low,Incorrect IPv6 static-route next hop,show ipv6 route,Correct IPv6 next-hop/static route,FALSE
+C069,UDP,Medium,PC1 — Router1 — Server1,A UDP-based service produces intermittent communication failures without clear connection error messages.,"IP connectivity is successful, but UDP packets are not reaching the expected application port.",Incorrect UDP port configuration or filtering prevents datagrams from reaching the service.,Layer 4,User Datagram Protocol,Medium,show access-lists,Correct the UDP destination port configuration and permit the required UDP traffic.,Test the UDP application again and verify packets are received by Server1.,"UDP is connectionless and does not provide handshake, acknowledgment, or guaranteed delivery.","
+You are a network troubleshooting assistant.
+
+Analyze the following network fault case using only the information provided.
+
+Network Topology:
+PC1 — Router1 — Server1
+
+Protocol or Technology:
+UDP
+
+Symptom:
+A UDP-based service produces intermittent communication failures without clear connection error messages.
+
+Evidence:
+IP connectivity is successful, but UDP packets are not reaching the expected application port.
+
+Provide the diagnosis in the following format:
+
+Root Cause:
+Confidence:
+Evidence Used:
+OSI Layer:
+Recommended Next Command:
+Suggested Fix Steps:
+
+Do not make unsupported assumptions.
+If the available evidence is insufficient, mention that additional troubleshooting is required.
+","A UDP-based service produces intermittent communication failures without clear connection error messages. IP connectivity is successful, but UDP packets are not reaching the expected application port.",C095,0.36,Low,Normal UDP behavior provides no built-in reliability or acknowledgment.,Check application packet handling,Implement application-level acknowledgment only if reliable delivery is required.,FALSE
+C070,HTTP,Easy,PC1 — Switch1 — WebServer,PC1 can ping WebServer successfully but cannot open the website using HTTP.,Browser connection fails and Server1 HTTP service is disabled or port 80 is unavailable.,HTTP application service is not running on the web server.,Layer 7,Hypertext Transfer Protocol,Medium,Check Server1 HTTP service status,Enable the HTTP service and ensure TCP port 80 is available.,Open the browser and access the server using its IPv4 address or configured hostname.,Successful ping only proves IP connectivity; application-layer services must also be operational.,"
+You are a network troubleshooting assistant.
+
+Analyze the following network fault case using only the information provided.
+
+Network Topology:
+PC1 — Switch1 — WebServer
+
+Protocol or Technology:
+HTTP
+
+Symptom:
+PC1 can ping WebServer successfully but cannot open the website using HTTP.
+
+Evidence:
+Browser connection fails and Server1 HTTP service is disabled or port 80 is unavailable.
+
+Provide the diagnosis in the following format:
+
+Root Cause:
+Confidence:
+Evidence Used:
+OSI Layer:
+Recommended Next Command:
+Suggested Fix Steps:
+
+Do not make unsupported assumptions.
+If the available evidence is insufficient, mention that additional troubleshooting is required.
+",PC1 can ping WebServer successfully but cannot open the website using HTTP. Browser connection fails and Server1 HTTP service is disabled or port 80 is unavailable.,C012,0.38,Low,HTTP service disabled on the server,ping 192.168.10.20,Enable HTTP service on the Server,FALSE
+C071,HTTPS,Medium,PC1 — Router1 — SecureServer,The secure website cannot be accessed using HTTPS although the same server responds correctly through HTTP.,"HTTP service works, but HTTPS port 443 or secure service configuration is disabled.",HTTPS service is unavailable or TCP port 443 is blocked.,Layer 7,Hypertext Transfer Protocol Secure,High,Check HTTPS service and port configuration,Enable HTTPS service and allow TCP port 443 through relevant filtering devices.,Access the website using HTTPS and confirm the secure connection is established.,HTTPS provides encrypted communication by combining HTTP with TLS/SSL security mechanisms.,"
+You are a network troubleshooting assistant.
+
+Analyze the following network fault case using only the information provided.
+
+Network Topology:
+PC1 — Router1 — SecureServer
+
+Protocol or Technology:
+HTTPS
+
+Symptom:
+The secure website cannot be accessed using HTTPS although the same server responds correctly through HTTP.
+
+Evidence:
+HTTP service works, but HTTPS port 443 or secure service configuration is disabled.
+
+Provide the diagnosis in the following format:
+
+Root Cause:
+Confidence:
+Evidence Used:
+OSI Layer:
+Recommended Next Command:
+Suggested Fix Steps:
+
+Do not make unsupported assumptions.
+If the available evidence is insufficient, mention that additional troubleshooting is required.
+","The secure website cannot be accessed using HTTPS although the same server responds correctly through HTTP. HTTP service works, but HTTPS port 443 or secure service configuration is disabled.",C070,0.38,Low,HTTP application service is not running on the web server.,Check Server1 HTTP service status,Enable the HTTP service and ensure TCP port 80 is available.,FALSE
+C072,FTP,Medium,PC1 — Switch1 — FTPServer,PC1 can ping FTPServer but file upload and download operations cannot be performed.,FTP client cannot authenticate or the FTP service is disabled on Server1.,FTP server service or user authentication configuration is incorrect.,Layer 7,File Transfer Protocol,Medium,Check FTP service configuration,Enable FTP service and configure valid username and password credentials.,Log in using FTP credentials and successfully transfer a test file.,FTP uses separate control and data communication and requires proper server authentication.,"
+You are a network troubleshooting assistant.
+
+Analyze the following network fault case using only the information provided.
+
+Network Topology:
+PC1 — Switch1 — FTPServer
+
+Protocol or Technology:
+FTP
+
+Symptom:
+PC1 can ping FTPServer but file upload and download operations cannot be performed.
+
+Evidence:
+FTP client cannot authenticate or the FTP service is disabled on Server1.
+
+Provide the diagnosis in the following format:
+
+Root Cause:
+Confidence:
+Evidence Used:
+OSI Layer:
+Recommended Next Command:
+Suggested Fix Steps:
+
+Do not make unsupported assumptions.
+If the available evidence is insufficient, mention that additional troubleshooting is required.
+",PC1 can ping FTPServer but file upload and download operations cannot be performed. FTP client cannot authenticate or the FTP service is disabled on Server1.,C070,0.26,Low,HTTP application service is not running on the web server.,Check Server1 HTTP service status,Enable the HTTP service and ensure TCP port 80 is available.,FALSE
+C073,TFTP,Medium,Router1 — Switch1 — TFTPServer,Router1 fails while attempting to back up or restore its configuration from a TFTP server.,"Ping to TFTPServer succeeds, but the copy command returns a transfer timeout or file access error.",TFTP service is disabled or the specified file name/server location is incorrect.,Layer 7,Trivial File Transfer Protocol,Medium,ping <TFTP-server-IP>,Enable the TFTP service and verify server IP address and requested file name.,Run the configuration copy operation again and confirm successful file transfer.,"TFTP uses UDP and does not provide authentication, making it simpler but less secure than FTP.","
+You are a network troubleshooting assistant.
+
+Analyze the following network fault case using only the information provided.
+
+Network Topology:
+Router1 — Switch1 — TFTPServer
+
+Protocol or Technology:
+TFTP
+
+Symptom:
+Router1 fails while attempting to back up or restore its configuration from a TFTP server.
+
+Evidence:
+Ping to TFTPServer succeeds, but the copy command returns a transfer timeout or file access error.
+
+Provide the diagnosis in the following format:
+
+Root Cause:
+Confidence:
+Evidence Used:
+OSI Layer:
+Recommended Next Command:
+Suggested Fix Steps:
+
+Do not make unsupported assumptions.
+If the available evidence is insufficient, mention that additional troubleshooting is required.
+","Router1 fails while attempting to back up or restore its configuration from a TFTP server. Ping to TFTPServer succeeds, but the copy command returns a transfer timeout or file access error.",C012,0.21,Low,HTTP service disabled on the server,ping 192.168.10.20,Enable HTTP service on the Server,FALSE
+C074,SMTP,Medium,PC1 — Router1 — MailServer,Users can connect to the network but outgoing email messages remain unsent.,Mail client shows SMTP connection failure and the SMTP service on MailServer is unavailable.,SMTP service is disabled or incorrectly configured for outgoing email delivery.,Layer 7,Simple Mail Transfer Protocol,High,Check MailServer SMTP configuration,Enable SMTP and configure the correct outgoing mail server settings.,Send a test email and confirm successful delivery to another configured user.,SMTP is primarily responsible for sending and forwarding email messages between clients and servers.,"
+You are a network troubleshooting assistant.
+
+Analyze the following network fault case using only the information provided.
+
+Network Topology:
+PC1 — Router1 — MailServer
+
+Protocol or Technology:
+SMTP
+
+Symptom:
+Users can connect to the network but outgoing email messages remain unsent.
+
+Evidence:
+Mail client shows SMTP connection failure and the SMTP service on MailServer is unavailable.
+
+Provide the diagnosis in the following format:
+
+Root Cause:
+Confidence:
+Evidence Used:
+OSI Layer:
+Recommended Next Command:
+Suggested Fix Steps:
+
+Do not make unsupported assumptions.
+If the available evidence is insufficient, mention that additional troubleshooting is required.
+",Users can connect to the network but outgoing email messages remain unsent. Mail client shows SMTP connection failure and the SMTP service on MailServer is unavailable.,C075,0.32,Low,POP3 service is unavailable or the incoming mail client configuration is incorrect.,Check POP3 service status,Enable POP3 service and configure correct incoming server credentials.,FALSE
+C075,POP3,Medium,PC1 — Switch1 — MailServer,A user can send emails successfully but cannot download received messages to the mail client.,"SMTP configuration works, while POP3 service or mailbox retrieval settings are disabled.",POP3 service is unavailable or the incoming mail client configuration is incorrect.,Layer 7,Post Office Protocol Version 3,Medium,Check POP3 service status,Enable POP3 service and configure correct incoming server credentials.,Retrieve received messages successfully using the configured mail client.,POP3 generally downloads emails from the server to the local email client.,"
+You are a network troubleshooting assistant.
+
+Analyze the following network fault case using only the information provided.
+
+Network Topology:
+PC1 — Switch1 — MailServer
+
+Protocol or Technology:
+POP3
+
+Symptom:
+A user can send emails successfully but cannot download received messages to the mail client.
+
+Evidence:
+SMTP configuration works, while POP3 service or mailbox retrieval settings are disabled.
+
+Provide the diagnosis in the following format:
+
+Root Cause:
+Confidence:
+Evidence Used:
+OSI Layer:
+Recommended Next Command:
+Suggested Fix Steps:
+
+Do not make unsupported assumptions.
+If the available evidence is insufficient, mention that additional troubleshooting is required.
+","A user can send emails successfully but cannot download received messages to the mail client. SMTP configuration works, while POP3 service or mailbox retrieval settings are disabled.",C074,0.32,Low,SMTP service is disabled or incorrectly configured for outgoing email delivery.,Check MailServer SMTP configuration,Enable SMTP and configure the correct outgoing mail server settings.,FALSE
+C076,IMAP,Medium,PC1 — Router1 — MailServer,Email users cannot synchronize folders and messages between multiple devices.,Mail server is reachable but IMAP service is disabled or incorrectly configured.,"IMAP protocol service is unavailable, preventing server-side mailbox synchronization.",Layer 7,Internet Message Access Protocol,Medium,Check IMAP service configuration,Enable IMAP service and configure the correct incoming mail settings.,Log in from multiple clients and verify that mailbox folders synchronize correctly.,IMAP keeps emails primarily on the server and supports synchronized access from multiple devices.,"
+You are a network troubleshooting assistant.
+
+Analyze the following network fault case using only the information provided.
+
+Network Topology:
+PC1 — Router1 — MailServer
+
+Protocol or Technology:
+IMAP
+
+Symptom:
+Email users cannot synchronize folders and messages between multiple devices.
+
+Evidence:
+Mail server is reachable but IMAP service is disabled or incorrectly configured.
+
+Provide the diagnosis in the following format:
+
+Root Cause:
+Confidence:
+Evidence Used:
+OSI Layer:
+Recommended Next Command:
+Suggested Fix Steps:
+
+Do not make unsupported assumptions.
+If the available evidence is insufficient, mention that additional troubleshooting is required.
+",Email users cannot synchronize folders and messages between multiple devices. Mail server is reachable but IMAP service is disabled or incorrectly configured.,C074,0.28,Low,SMTP service is disabled or incorrectly configured for outgoing email delivery.,Check MailServer SMTP configuration,Enable SMTP and configure the correct outgoing mail server settings.,FALSE
+C077,Telnet,Easy,PC1 — Router1,PC1 cannot remotely access Router1 using Telnet even though the router responds to ping requests.,VTY lines do not permit Telnet or no password/login configuration is present.,Telnet remote access is not properly configured on Router1 VTY lines.,Layer 7,Telnet Remote Access,Medium,show running-config,Configure VTY lines with login authentication and permit Telnet access if required.,Establish a Telnet session from PC1 and verify successful router CLI access.,Telnet transmits credentials and data without encryption and should only be used in controlled lab environments.,"
+You are a network troubleshooting assistant.
+
+Analyze the following network fault case using only the information provided.
+
+Network Topology:
+PC1 — Router1
+
+Protocol or Technology:
+Telnet
+
+Symptom:
+PC1 cannot remotely access Router1 using Telnet even though the router responds to ping requests.
+
+Evidence:
+VTY lines do not permit Telnet or no password/login configuration is present.
+
+Provide the diagnosis in the following format:
+
+Root Cause:
+Confidence:
+Evidence Used:
+OSI Layer:
+Recommended Next Command:
+Suggested Fix Steps:
+
+Do not make unsupported assumptions.
+If the available evidence is insufficient, mention that additional troubleshooting is required.
+",PC1 cannot remotely access Router1 using Telnet even though the router responds to ping requests. VTY lines do not permit Telnet or no password/login configuration is present.,C078,0.17,Low,"SSH server prerequisites are incomplete, preventing secure session establishment.",show ip ssh,"Configure hostname, domain name, local user, RSA keys, SSH version 2, and VTY SSH transport.",FALSE
+C078,SSH,Medium,PC1 — Switch1 — Router1,Secure remote login to Router1 fails while normal network connectivity remains functional.,"Router1 has an IP address, but SSH version, domain name, RSA keys, or VTY transport settings are missing.","SSH server prerequisites are incomplete, preventing secure session establishment.",Layer 7,Secure Shell,High,show ip ssh,"Configure hostname, domain name, local user, RSA keys, SSH version 2, and VTY SSH transport.",Connect from PC1 using SSH and authenticate successfully with configured credentials.,SSH provides encrypted remote CLI access and is preferred over Telnet for secure administration.,"
+You are a network troubleshooting assistant.
+
+Analyze the following network fault case using only the information provided.
+
+Network Topology:
+PC1 — Switch1 — Router1
+
+Protocol or Technology:
+SSH
+
+Symptom:
+Secure remote login to Router1 fails while normal network connectivity remains functional.
+
+Evidence:
+Router1 has an IP address, but SSH version, domain name, RSA keys, or VTY transport settings are missing.
+
+Provide the diagnosis in the following format:
+
+Root Cause:
+Confidence:
+Evidence Used:
+OSI Layer:
+Recommended Next Command:
+Suggested Fix Steps:
+
+Do not make unsupported assumptions.
+If the available evidence is insufficient, mention that additional troubleshooting is required.
+","Secure remote login to Router1 fails while normal network connectivity remains functional. Router1 has an IP address, but SSH version, domain name, RSA keys, or VTY transport settings are missing.",C099,0.26,Low,Configured SSH exec timeout value is too short for the administrator's workflow.,show running-config,Adjust the VTY exec timeout to an appropriate secure value.,FALSE
+C079,SNMP,Hard,NMS — Router1 — Switch1,The network monitoring system cannot collect interface and device statistics from Router1 and Switch1.,SNMP polling requests fail because the community string or SNMP configuration does not match.,Incorrect SNMP community string or missing SNMP agent configuration prevents monitoring communication.,Layer 7,Simple Network Management Protocol,High,show running-config,Configure the correct SNMP community and access permissions on the monitored devices.,Perform SNMP polling again and verify device information is received by the monitoring system.,SNMP allows centralized monitoring and management of network devices and operational statistics.,"
+You are a network troubleshooting assistant.
+
+Analyze the following network fault case using only the information provided.
+
+Network Topology:
+NMS — Router1 — Switch1
+
+Protocol or Technology:
+SNMP
+
+Symptom:
+The network monitoring system cannot collect interface and device statistics from Router1 and Switch1.
+
+Evidence:
+SNMP polling requests fail because the community string or SNMP configuration does not match.
+
+Provide the diagnosis in the following format:
+
+Root Cause:
+Confidence:
+Evidence Used:
+OSI Layer:
+Recommended Next Command:
+Suggested Fix Steps:
+
+Do not make unsupported assumptions.
+If the available evidence is insufficient, mention that additional troubleshooting is required.
+",The network monitoring system cannot collect interface and device statistics from Router1 and Switch1. SNMP polling requests fail because the community string or SNMP configuration does not match.,C100,0.4,Medium,SNMP monitoring scope is broader than operational requirements.,show running-config,Restrict SNMP views or monitoring queries to only required objects and devices.,FALSE
+C080,Ethernet / Duplex,Hard,PC1 — Switch1,"PC1 has connectivity but experiences very slow communication, packet loss, and inconsistent application performance.","Interface statistics show excessive collisions, late collisions, or duplex mismatch errors on the connected port.",Ethernet speed or duplex settings are mismatched between PC1 and Switch1.,Layer 1–2,Ethernet Speed and Duplex,High,show interfaces,Configure both sides for compatible speed and duplex settings or enable auto-negotiation consistently.,Monitor interface counters and confirm errors stop increasing during communication tests.,Duplex mismatch can allow partial connectivity while causing severe performance degradation and packet errors.,"
+You are a network troubleshooting assistant.
+
+Analyze the following network fault case using only the information provided.
+
+Network Topology:
+PC1 — Switch1
+
+Protocol or Technology:
+Ethernet / Duplex
+
+Symptom:
+PC1 has connectivity but experiences very slow communication, packet loss, and inconsistent application performance.
+
+Evidence:
+Interface statistics show excessive collisions, late collisions, or duplex mismatch errors on the connected port.
+
+Provide the diagnosis in the following format:
+
+Root Cause:
+Confidence:
+Evidence Used:
+OSI Layer:
+Recommended Next Command:
+Suggested Fix Steps:
+
+Do not make unsupported assumptions.
+If the available evidence is insufficient, mention that additional troubleshooting is required.
+","PC1 has connectivity but experiences very slow communication, packet loss, and inconsistent application performance. Interface statistics show excessive collisions, late collisions, or duplex mismatch errors on the connected port.",C094,0.17,Low,Application or TCP session timeout closes inactive connections.,Check application connection timeout settings,Adjust the application timeout value if longer inactive sessions are required.,FALSE
+C081,Ethernet,Easy,PC1 — Switch1,"PC1 has network connectivity, but the connection speed is lower than expected during normal data transfer.","Interface status shows the link is operational, but negotiated speed is lower than the expected interface capability.",Ethernet interface speed negotiation selected an unintended lower speed.,Layer 1–2,Ethernet Speed Negotiation,Low,show interfaces status,Configure compatible speed settings or enable auto-negotiation on both connected interfaces.,Confirm the interface negotiates the expected speed and basic connectivity remains stable.,This issue mainly affects performance and does not completely stop communication.,"
+You are a network troubleshooting assistant.
+
+Analyze the following network fault case using only the information provided.
+
+Network Topology:
+PC1 — Switch1
+
+Protocol or Technology:
+Ethernet
+
+Symptom:
+PC1 has network connectivity, but the connection speed is lower than expected during normal data transfer.
+
+Evidence:
+Interface status shows the link is operational, but negotiated speed is lower than the expected interface capability.
+
+Provide the diagnosis in the following format:
+
+Root Cause:
+Confidence:
+Evidence Used:
+OSI Layer:
+Recommended Next Command:
+Suggested Fix Steps:
+
+Do not make unsupported assumptions.
+If the available evidence is insufficient, mention that additional troubleshooting is required.
+","PC1 has network connectivity, but the connection speed is lower than expected during normal data transfer. Interface status shows the link is operational, but negotiated speed is lower than the expected interface capability.",C010,0.27,Low,Wrong Ethernet cable type used between PC1 Fa0 and Switch1 Fa0/1,show interfaces status,Replace the incorrect cable with the appropriate Ethernet cable,FALSE
+C082,ARP,Easy,PC1 — Switch1 — Router1,PC1 initially experiences a short delay when communicating with a newly contacted device on the local network.,The ARP table does not contain an entry for the destination IP address before the first communication attempt.,Normal ARP cache miss requires address resolution before data transmission begins.,Layer 2–3,ARP Cache Resolution,Low,arp -a,Allow ARP resolution to complete and verify the destination MAC address is learned correctly.,Repeat communication and confirm the ARP entry is present and response time improves.,A temporary delay during initial ARP resolution can be normal network behavior.,"
+You are a network troubleshooting assistant.
+
+Analyze the following network fault case using only the information provided.
+
+Network Topology:
+PC1 — Switch1 — Router1
+
+Protocol or Technology:
+ARP
+
+Symptom:
+PC1 initially experiences a short delay when communicating with a newly contacted device on the local network.
+
+Evidence:
+The ARP table does not contain an entry for the destination IP address before the first communication attempt.
+
+Provide the diagnosis in the following format:
+
+Root Cause:
+Confidence:
+Evidence Used:
+OSI Layer:
+Recommended Next Command:
+Suggested Fix Steps:
+
+Do not make unsupported assumptions.
+If the available evidence is insufficient, mention that additional troubleshooting is required.
+",PC1 initially experiences a short delay when communicating with a newly contacted device on the local network. The ARP table does not contain an entry for the destination IP address before the first communication attempt.,C062,0.23,Low,ARP resolution failure prevents PC1 from learning the MAC address of its gateway.,arp -a,Clear the incorrect ARP entry and verify Layer 2 connectivity between PC1 and Router1.,FALSE
+C083,VLAN,Easy,PC1(VLAN10) — Switch1,PC1 is connected correctly but cannot communicate with newly added devices until its switchport configuration is updated.,"show vlan brief shows the required VLAN exists, but the PC interface is assigned to the default VLAN.",Access port was not updated after a planned VLAN assignment change.,Layer 2,VLAN Access Port Configuration,Low,show vlan brief,Assign the correct access VLAN to the PC interface.,Confirm the port appears under the intended VLAN and communication with VLAN members succeeds.,This is a localized configuration issue with limited network impact.,"
+You are a network troubleshooting assistant.
+
+Analyze the following network fault case using only the information provided.
+
+Network Topology:
+PC1(VLAN10) — Switch1
+
+Protocol or Technology:
+VLAN
+
+Symptom:
+PC1 is connected correctly but cannot communicate with newly added devices until its switchport configuration is updated.
+
+Evidence:
+show vlan brief shows the required VLAN exists, but the PC interface is assigned to the default VLAN.
+
+Provide the diagnosis in the following format:
+
+Root Cause:
+Confidence:
+Evidence Used:
+OSI Layer:
+Recommended Next Command:
+Suggested Fix Steps:
+
+Do not make unsupported assumptions.
+If the available evidence is insufficient, mention that additional troubleshooting is required.
+","PC1 is connected correctly but cannot communicate with newly added devices until its switchport configuration is updated. show vlan brief shows the required VLAN exists, but the PC interface is assigned to the default VLAN.",C063,0.43,Medium,Incorrect switchport VLAN assignment places the hosts in different broadcast domains.,show vlan brief,Configure both required access interfaces using switchport access vlan 10.,FALSE
+C084,IEEE 802.1Q,Easy,Switch1 — Switch2,"VLAN traffic passes between switches, but an additional VLAN is unavailable across the trunk connection.",show interfaces trunk shows the trunk is active but the required VLAN is not included in the allowed VLAN list.,Required VLAN is excluded from the permitted trunk VLAN range.,Layer 2,Trunk Allowed VLAN List,Low,show interfaces trunk,Add the required VLAN to the allowed VLAN list on the trunk.,Verify the VLAN appears as allowed and active on both trunk interfaces.,The trunk itself works correctly; only one VLAN is affected.,"
+You are a network troubleshooting assistant.
+
+Analyze the following network fault case using only the information provided.
+
+Network Topology:
+Switch1 — Switch2
+
+Protocol or Technology:
+IEEE 802.1Q
+
+Symptom:
+VLAN traffic passes between switches, but an additional VLAN is unavailable across the trunk connection.
+
+Evidence:
+show interfaces trunk shows the trunk is active but the required VLAN is not included in the allowed VLAN list.
+
+Provide the diagnosis in the following format:
+
+Root Cause:
+Confidence:
+Evidence Used:
+OSI Layer:
+Recommended Next Command:
+Suggested Fix Steps:
+
+Do not make unsupported assumptions.
+If the available evidence is insufficient, mention that additional troubleshooting is required.
+","VLAN traffic passes between switches, but an additional VLAN is unavailable across the trunk connection. show interfaces trunk shows the trunk is active but the required VLAN is not included in the allowed VLAN list.",C018,0.57,Medium,Different native VLAN configured on trunk ends.,show interfaces trunk,Configure the same native VLAN on both switches,FALSE
+C085,STP,Easy,Switch1 — Switch2 — Switch3,"Network communication remains functional, but one redundant port is placed in a blocking state.",show spanning-tree shows an alternate port not forwarding traffic due to loop prevention.,Normal STP operation has blocked a redundant path to prevent a Layer 2 loop.,Layer 2,STP Port Roles,Low,show spanning-tree,No corrective action is required unless topology design requires a different root bridge.,Confirm the network remains loop-free and alternate connectivity is available after a link failure.,A blocked STP port is often expected behavior rather than an actual network fault.,"
+You are a network troubleshooting assistant.
+
+Analyze the following network fault case using only the information provided.
+
+Network Topology:
+Switch1 — Switch2 — Switch3
+
+Protocol or Technology:
+STP
+
+Symptom:
+Network communication remains functional, but one redundant port is placed in a blocking state.
+
+Evidence:
+show spanning-tree shows an alternate port not forwarding traffic due to loop prevention.
+
+Provide the diagnosis in the following format:
+
+Root Cause:
+Confidence:
+Evidence Used:
+OSI Layer:
+Recommended Next Command:
+Suggested Fix Steps:
+
+Do not make unsupported assumptions.
+If the available evidence is insufficient, mention that additional troubleshooting is required.
+","Network communication remains functional, but one redundant port is placed in a blocking state. show spanning-tree shows an alternate port not forwarding traffic due to loop prevention.",C065,0.25,Low,"RSTP is disabled or inconsistent, causing improper handling of redundant Layer 2 paths.",show spanning-tree,Enable Rapid PVST or configure consistent RSTP mode across all participating switches.,FALSE
+C086,RSTP,Easy,Switch1 — Switch2 — Switch3,"After a minor topology change, network connectivity briefly pauses before traffic resumes.",Spanning-tree output shows RSTP convergence occurred and port roles changed correctly.,Temporary convergence delay occurred during a normal RSTP topology transition.,Layer 2,RSTP Convergence,Low,show spanning-tree,Verify consistent RSTP configuration and monitor for unnecessary repeated topology changes.,Confirm ports stabilize and communication resumes without manual intervention.,Short convergence events can occur when redundant network paths change state.,"
+You are a network troubleshooting assistant.
+
+Analyze the following network fault case using only the information provided.
+
+Network Topology:
+Switch1 — Switch2 — Switch3
+
+Protocol or Technology:
+RSTP
+
+Symptom:
+After a minor topology change, network connectivity briefly pauses before traffic resumes.
+
+Evidence:
+Spanning-tree output shows RSTP convergence occurred and port roles changed correctly.
+
+Provide the diagnosis in the following format:
+
+Root Cause:
+Confidence:
+Evidence Used:
+OSI Layer:
+Recommended Next Command:
+Suggested Fix Steps:
+
+Do not make unsupported assumptions.
+If the available evidence is insufficient, mention that additional troubleshooting is required.
+","After a minor topology change, network connectivity briefly pauses before traffic resumes. Spanning-tree output shows RSTP convergence occurred and port roles changed correctly.",C065,0.23,Low,"RSTP is disabled or inconsistent, causing improper handling of redundant Layer 2 paths.",show spanning-tree,Enable Rapid PVST or configure consistent RSTP mode across all participating switches.,FALSE
+C087,EtherChannel,Easy,Switch1 === Switch2,"EtherChannel is operational, but traffic distribution appears uneven between member links.",show etherchannel summary shows all member ports bundled correctly with no suspended interfaces.,Uneven traffic is caused by normal load-balancing hash behavior based on traffic flow characteristics.,Layer 2,EtherChannel Load Balancing,Low,show etherchannel load-balance,Adjust the load-balancing algorithm only if network requirements demand improved distribution.,Generate multiple traffic flows and observe utilization across EtherChannel member links.,A single large flow may use only one physical member link depending on hashing.,"
+You are a network troubleshooting assistant.
+
+Analyze the following network fault case using only the information provided.
+
+Network Topology:
+Switch1 === Switch2
+
+Protocol or Technology:
+EtherChannel
+
+Symptom:
+EtherChannel is operational, but traffic distribution appears uneven between member links.
+
+Evidence:
+show etherchannel summary shows all member ports bundled correctly with no suspended interfaces.
+
+Provide the diagnosis in the following format:
+
+Root Cause:
+Confidence:
+Evidence Used:
+OSI Layer:
+Recommended Next Command:
+Suggested Fix Steps:
+
+Do not make unsupported assumptions.
+If the available evidence is insufficient, mention that additional troubleshooting is required.
+","EtherChannel is operational, but traffic distribution appears uneven between member links. show etherchannel summary shows all member ports bundled correctly with no suspended interfaces.",C015,0.33,Low,Switch2 assigned to the wrong EtherChannel group,show etherchannel sumary,Remove Fa0/2 from channel-group 2 and assign it to channel-group 1 using PAgP,FALSE
+C088,IPv4,Easy,PC1 — Switch1 — Router1,"PC1 communicates successfully, but the displayed hostname or device label causes temporary confusion during troubleshooting.","ipconfig confirms a valid IPv4 address, subnet mask, and default gateway despite naming inconsistency.",Documentation or host identification mismatch rather than an actual IPv4 connectivity failure.,Layer 3,IPv4 Host Identification,Low,ipconfig,Update device documentation or hostname records to match the assigned network information.,Verify documentation accurately identifies the device and IP configuration remains functional.,Proper documentation reduces troubleshooting time and prevents configuration mistakes.,"
+You are a network troubleshooting assistant.
+
+Analyze the following network fault case using only the information provided.
+
+Network Topology:
+PC1 — Switch1 — Router1
+
+Protocol or Technology:
+IPv4
+
+Symptom:
+PC1 communicates successfully, but the displayed hostname or device label causes temporary confusion during troubleshooting.
+
+Evidence:
+ipconfig confirms a valid IPv4 address, subnet mask, and default gateway despite naming inconsistency.
+
+Provide the diagnosis in the following format:
+
+Root Cause:
+Confidence:
+Evidence Used:
+OSI Layer:
+Recommended Next Command:
+Suggested Fix Steps:
+
+Do not make unsupported assumptions.
+If the available evidence is insufficient, mention that additional troubleshooting is required.
+","PC1 communicates successfully, but the displayed hostname or device label causes temporary confusion during troubleshooting. ipconfig confirms a valid IPv4 address, subnet mask, and default gateway despite naming inconsistency.",C062,0.26,Low,ARP resolution failure prevents PC1 from learning the MAC address of its gateway.,arp -a,Clear the incorrect ARP entry and verify Layer 2 connectivity between PC1 and Router1.,FALSE
+C089,IPv6,Easy,PC1 — Switch1 — Router1,"PC1 can communicate using IPv6, but multiple IPv6 addresses are displayed and create confusion for the administrator.",ipconfig shows both link-local and global unicast IPv6 addresses assigned to the interface.,Normal IPv6 addressing behavior is interpreted incorrectly as an address configuration problem.,Layer 3,IPv6 Address Types,Low,ipconfig,Identify the correct global unicast address for routed communication and document its purpose.,Confirm communication using the appropriate IPv6 address and gateway.,IPv6 interfaces commonly have multiple addresses serving different networking purposes.,"
+You are a network troubleshooting assistant.
+
+Analyze the following network fault case using only the information provided.
+
+Network Topology:
+PC1 — Switch1 — Router1
+
+Protocol or Technology:
+IPv6
+
+Symptom:
+PC1 can communicate using IPv6, but multiple IPv6 addresses are displayed and create confusion for the administrator.
+
+Evidence:
+ipconfig shows both link-local and global unicast IPv6 addresses assigned to the interface.
+
+Provide the diagnosis in the following format:
+
+Root Cause:
+Confidence:
+Evidence Used:
+OSI Layer:
+Recommended Next Command:
+Suggested Fix Steps:
+
+Do not make unsupported assumptions.
+If the available evidence is insufficient, mention that additional troubleshooting is required.
+","PC1 can communicate using IPv6, but multiple IPv6 addresses are displayed and create confusion for the administrator. ipconfig shows both link-local and global unicast IPv6 addresses assigned to the interface.",C048,0.29,Low,IPv6 Router Advertisement/SLAAC disabled,show ipv6 interface,Enable IPv6 forwarding/RA on the LAN interface as required,FALSE
+C090,ICMP,Easy,PC1 — Router1 — PC2,"The first ping packet occasionally fails, while subsequent ping packets receive successful replies.",Ping statistics show one initial timeout followed by successful replies from the destination.,Initial ARP or neighbor discovery resolution delays the first ICMP packet.,Layer 3,ICMP Connectivity Testing,Low,ping <destination-IP>,Repeat the ping test after address resolution has completed.,Confirm subsequent packets receive replies with stable connectivity.,The first ping loss may occur while Layer 2 address resolution is taking place.,"
+You are a network troubleshooting assistant.
+
+Analyze the following network fault case using only the information provided.
+
+Network Topology:
+PC1 — Router1 — PC2
+
+Protocol or Technology:
+ICMP
+
+Symptom:
+The first ping packet occasionally fails, while subsequent ping packets receive successful replies.
+
+Evidence:
+Ping statistics show one initial timeout followed by successful replies from the destination.
+
+Provide the diagnosis in the following format:
+
+Root Cause:
+Confidence:
+Evidence Used:
+OSI Layer:
+Recommended Next Command:
+Suggested Fix Steps:
+
+Do not make unsupported assumptions.
+If the available evidence is insufficient, mention that additional troubleshooting is required.
+","The first ping packet occasionally fails, while subsequent ping packets receive successful replies. Ping statistics show one initial timeout followed by successful replies from the destination.",C008,0.2,Low,PC1 configured with incorrect DNS server 192.168.10.200,ipconfig/nslookup,Set DNS server to 192.168.10.100,FALSE
+C091,RIP,Easy,Router1 — Router2 — Router3,"RIP routes are successfully learned, but routing updates generate unnecessary traffic on an unused interface.",show ip protocols shows RIP sending updates through an interface with no neighboring RIP router.,RIP updates are enabled on an interface where routing advertisements are unnecessary.,Layer 3,RIP Passive Interface,Low,show ip protocols,Configure the unnecessary interface as passive for RIP updates.,Verify routes remain available while unnecessary update traffic is reduced.,Passive interfaces improve efficiency without affecting required route advertisement.,"
+You are a network troubleshooting assistant.
+
+Analyze the following network fault case using only the information provided.
+
+Network Topology:
+Router1 — Router2 — Router3
+
+Protocol or Technology:
+RIP
+
+Symptom:
+RIP routes are successfully learned, but routing updates generate unnecessary traffic on an unused interface.
+
+Evidence:
+show ip protocols shows RIP sending updates through an interface with no neighboring RIP router.
+
+Provide the diagnosis in the following format:
+
+Root Cause:
+Confidence:
+Evidence Used:
+OSI Layer:
+Recommended Next Command:
+Suggested Fix Steps:
+
+Do not make unsupported assumptions.
+If the available evidence is insufficient, mention that additional troubleshooting is required.
+","RIP routes are successfully learned, but routing updates generate unnecessary traffic on an unused interface. show ip protocols shows RIP sending updates through an interface with no neighboring RIP router.",C033,0.36,Low,Incorrect static-route next hop,show ip route,Correct next-hop address,FALSE
+C092,OSPF,Medium,Router1 — Router2,"OSPF adjacency is established and routing works, but hello packets are unnecessarily sent toward a LAN without OSPF neighbors.",show ip ospf interface shows OSPF enabled on an interface containing only end devices.,OSPF is active on an interface where neighbor formation is not required.,Layer 3,OSPF Passive Interface,Low,show ip ospf interface,Configure the LAN interface as a passive OSPF interface.,Confirm OSPF routes remain advertised while hello packets are no longer sent unnecessarily.,Passive interfaces improve security and reduce unnecessary routing protocol traffic.,"
+You are a network troubleshooting assistant.
+
+Analyze the following network fault case using only the information provided.
+
+Network Topology:
+Router1 — Router2
+
+Protocol or Technology:
+OSPF
+
+Symptom:
+OSPF adjacency is established and routing works, but hello packets are unnecessarily sent toward a LAN without OSPF neighbors.
+
+Evidence:
+show ip ospf interface shows OSPF enabled on an interface containing only end devices.
+
+Provide the diagnosis in the following format:
+
+Root Cause:
+Confidence:
+Evidence Used:
+OSI Layer:
+Recommended Next Command:
+Suggested Fix Steps:
+
+Do not make unsupported assumptions.
+If the available evidence is insufficient, mention that additional troubleshooting is required.
+","OSPF adjacency is established and routing works, but hello packets are unnecessarily sent toward a LAN without OSPF neighbors. show ip ospf interface shows OSPF enabled on an interface containing only end devices.",C093,0.39,Low,EIGRP is unnecessarily active on an interface where no EIGRP neighbor exists.,show ip protocols,Configure the end-device LAN interface as passive under EIGRP configuration.,FALSE
+C093,EIGRP,Medium,Router1 — Router2,"EIGRP routing works normally, but unnecessary hello packets are sent on an interface connected only to end devices.",show ip eigrp interfaces displays EIGRP activity on a user-facing LAN interface.,EIGRP is unnecessarily active on an interface where no EIGRP neighbor exists.,Layer 3,EIGRP Passive Interface,Low,show ip protocols,Configure the end-device LAN interface as passive under EIGRP configuration.,Confirm EIGRP routes continue to be advertised without unnecessary neighbor discovery traffic.,Passive interfaces are useful for improving routing protocol efficiency and limiting exposure.,"
+You are a network troubleshooting assistant.
+
+Analyze the following network fault case using only the information provided.
+
+Network Topology:
+Router1 — Router2
+
+Protocol or Technology:
+EIGRP
+
+Symptom:
+EIGRP routing works normally, but unnecessary hello packets are sent on an interface connected only to end devices.
+
+Evidence:
+show ip eigrp interfaces displays EIGRP activity on a user-facing LAN interface.
+
+Provide the diagnosis in the following format:
+
+Root Cause:
+Confidence:
+Evidence Used:
+OSI Layer:
+Recommended Next Command:
+Suggested Fix Steps:
+
+Do not make unsupported assumptions.
+If the available evidence is insufficient, mention that additional troubleshooting is required.
+","EIGRP routing works normally, but unnecessary hello packets are sent on an interface connected only to end devices. show ip eigrp interfaces displays EIGRP activity on a user-facing LAN interface.",C092,0.39,Low,OSPF is active on an interface where neighbor formation is not required.,show ip ospf interface,Configure the LAN interface as a passive OSPF interface.,FALSE
+C094,TCP,Easy,PC1 — Server1,A TCP application connection is established successfully but closes after a short period of inactivity.,Network connectivity is normal and no packet loss is observed during active communication.,Application or TCP session timeout closes inactive connections.,Layer 4,TCP Session Timeout,Low,Check application connection timeout settings,Adjust the application timeout value if longer inactive sessions are required.,Keep a test session idle and confirm it remains active for the configured timeout period.,This is generally a configuration or application behavior issue rather than complete network failure.,"
+You are a network troubleshooting assistant.
+
+Analyze the following network fault case using only the information provided.
+
+Network Topology:
+PC1 — Server1
+
+Protocol or Technology:
+TCP
+
+Symptom:
+A TCP application connection is established successfully but closes after a short period of inactivity.
+
+Evidence:
+Network connectivity is normal and no packet loss is observed during active communication.
+
+Provide the diagnosis in the following format:
+
+Root Cause:
+Confidence:
+Evidence Used:
+OSI Layer:
+Recommended Next Command:
+Suggested Fix Steps:
+
+Do not make unsupported assumptions.
+If the available evidence is insufficient, mention that additional troubleshooting is required.
+",A TCP application connection is established successfully but closes after a short period of inactivity. Network connectivity is normal and no packet loss is observed during active communication.,C068,0.23,Low,TCP three-way handshake cannot complete due to unavailable or filtered destination service port.,telnet <server-ip> <port>,Enable the required service or allow the TCP port through the firewall or ACL.,FALSE
+C095,UDP,Easy,PC1 — Server1,"A UDP application works correctly, but occasional packets are not acknowledged by the receiving application.",Packet capture shows UDP datagrams transmitted without acknowledgment or retransmission mechanisms.,Normal UDP behavior provides no built-in reliability or acknowledgment.,Layer 4,UDP Connectionless Communication,Low,Check application packet handling,Implement application-level acknowledgment only if reliable delivery is required.,Monitor application data and confirm expected handling of occasional packet loss.,UDP prioritizes speed and low overhead over guaranteed delivery.,"
+You are a network troubleshooting assistant.
+
+Analyze the following network fault case using only the information provided.
+
+Network Topology:
+PC1 — Server1
+
+Protocol or Technology:
+UDP
+
+Symptom:
+A UDP application works correctly, but occasional packets are not acknowledged by the receiving application.
+
+Evidence:
+Packet capture shows UDP datagrams transmitted without acknowledgment or retransmission mechanisms.
+
+Provide the diagnosis in the following format:
+
+Root Cause:
+Confidence:
+Evidence Used:
+OSI Layer:
+Recommended Next Command:
+Suggested Fix Steps:
+
+Do not make unsupported assumptions.
+If the available evidence is insufficient, mention that additional troubleshooting is required.
+","A UDP application works correctly, but occasional packets are not acknowledged by the receiving application. Packet capture shows UDP datagrams transmitted without acknowledgment or retransmission mechanisms.",C069,0.36,Low,Incorrect UDP port configuration or filtering prevents datagrams from reaching the service.,show access-lists,Correct the UDP destination port configuration and permit the required UDP traffic.,FALSE
+C096,DNS,Easy,PC1 — Switch1 — DNSServer,Users can access websites by IP address but experience a brief delay when resolving a new domain name.,"DNS resolution succeeds after a short delay, and repeated requests respond faster due to cached entries.",Initial DNS lookup delay occurs before the hostname information is stored in cache.,Layer 7,DNS Caching,Low,nslookup <domain-name>,Verify DNS server responsiveness and allow normal caching to improve repeated lookup performance.,Repeat the lookup and confirm the hostname resolves successfully with improved response time.,DNS caching reduces repeated query time and unnecessary traffic to authoritative servers.,"
+You are a network troubleshooting assistant.
+
+Analyze the following network fault case using only the information provided.
+
+Network Topology:
+PC1 — Switch1 — DNSServer
+
+Protocol or Technology:
+DNS
+
+Symptom:
+Users can access websites by IP address but experience a brief delay when resolving a new domain name.
+
+Evidence:
+DNS resolution succeeds after a short delay, and repeated requests respond faster due to cached entries.
+
+Provide the diagnosis in the following format:
+
+Root Cause:
+Confidence:
+Evidence Used:
+OSI Layer:
+Recommended Next Command:
+Suggested Fix Steps:
+
+Do not make unsupported assumptions.
+If the available evidence is insufficient, mention that additional troubleshooting is required.
+","Users can access websites by IP address but experience a brief delay when resolving a new domain name. DNS resolution succeeds after a short delay, and repeated requests respond faster due to cached entries.",C082,0.17,Low,Normal ARP cache miss requires address resolution before data transmission begins.,arp -a,Allow ARP resolution to complete and verify the destination MAC address is learned correctly.,FALSE
+C097,HTTP,Easy,PC1 — WebServer,"The website loads correctly, but some static content takes longer to appear than expected.","HTTP service is operational and page requests succeed, but large files increase loading time.",Large HTTP resources cause increased application response time without complete service failure.,Layer 7,HTTP Resource Transfer,Low,Check web server access logs,Optimize large web resources or enable appropriate caching where required.,Reload the webpage and confirm reduced loading time for optimized content.,This is a performance issue rather than a complete HTTP connectivity failure.,"
+You are a network troubleshooting assistant.
+
+Analyze the following network fault case using only the information provided.
+
+Network Topology:
+PC1 — WebServer
+
+Protocol or Technology:
+HTTP
+
+Symptom:
+The website loads correctly, but some static content takes longer to appear than expected.
+
+Evidence:
+HTTP service is operational and page requests succeed, but large files increase loading time.
+
+Provide the diagnosis in the following format:
+
+Root Cause:
+Confidence:
+Evidence Used:
+OSI Layer:
+Recommended Next Command:
+Suggested Fix Steps:
+
+Do not make unsupported assumptions.
+If the available evidence is insufficient, mention that additional troubleshooting is required.
+","The website loads correctly, but some static content takes longer to appear than expected. HTTP service is operational and page requests succeed, but large files increase loading time.",C070,0.2,Low,HTTP application service is not running on the web server.,Check Server1 HTTP service status,Enable the HTTP service and ensure TCP port 80 is available.,FALSE
+C098,HTTPS,Easy,PC1 — SecureServer,Users receive a certificate warning while accessing an otherwise functional secure website.,"HTTPS connection reaches the server, but the certificate name or validity information does not match the accessed hostname.",SSL/TLS certificate configuration mismatch causes browser security warnings.,Layer 7,HTTPS Certificate Validation,Low,Check certificate details on SecureServer,Install or configure a valid certificate matching the server hostname and validity period.,Access the secure website again and confirm the browser accepts the certificate.,"Encryption may still function, but certificate warnings reduce user trust and should be corrected.","
+You are a network troubleshooting assistant.
+
+Analyze the following network fault case using only the information provided.
+
+Network Topology:
+PC1 — SecureServer
+
+Protocol or Technology:
+HTTPS
+
+Symptom:
+Users receive a certificate warning while accessing an otherwise functional secure website.
+
+Evidence:
+HTTPS connection reaches the server, but the certificate name or validity information does not match the accessed hostname.
+
+Provide the diagnosis in the following format:
+
+Root Cause:
+Confidence:
+Evidence Used:
+OSI Layer:
+Recommended Next Command:
+Suggested Fix Steps:
+
+Do not make unsupported assumptions.
+If the available evidence is insufficient, mention that additional troubleshooting is required.
+","Users receive a certificate warning while accessing an otherwise functional secure website. HTTPS connection reaches the server, but the certificate name or validity information does not match the accessed hostname.",C071,0.29,Low,HTTPS service is unavailable or TCP port 443 is blocked.,Check HTTPS service and port configuration,Enable HTTPS service and allow TCP port 443 through relevant filtering devices.,FALSE
+C099,SSH,Easy,PC1 — Router1,"SSH remote access works, but administrators are required to enter credentials more frequently due to a short session timeout.","SSH login succeeds and network connectivity is normal, but inactive sessions close quickly.",Configured SSH exec timeout value is too short for the administrator's workflow.,Layer 7,SSH Session Management,Low,show running-config,Adjust the VTY exec timeout to an appropriate secure value.,Establish an SSH session and confirm it remains active for the expected period.,Longer timeouts improve convenience but should be balanced with security requirements.,"
+You are a network troubleshooting assistant.
+
+Analyze the following network fault case using only the information provided.
+
+Network Topology:
+PC1 — Router1
+
+Protocol or Technology:
+SSH
+
+Symptom:
+SSH remote access works, but administrators are required to enter credentials more frequently due to a short session timeout.
+
+Evidence:
+SSH login succeeds and network connectivity is normal, but inactive sessions close quickly.
+
+Provide the diagnosis in the following format:
+
+Root Cause:
+Confidence:
+Evidence Used:
+OSI Layer:
+Recommended Next Command:
+Suggested Fix Steps:
+
+Do not make unsupported assumptions.
+If the available evidence is insufficient, mention that additional troubleshooting is required.
+","SSH remote access works, but administrators are required to enter credentials more frequently due to a short session timeout. SSH login succeeds and network connectivity is normal, but inactive sessions close quickly.",C078,0.26,Low,"SSH server prerequisites are incomplete, preventing secure session establishment.",show ip ssh,"Configure hostname, domain name, local user, RSA keys, SSH version 2, and VTY SSH transport.",FALSE
+C100,SNMP,Medium,NMS — Switch1 — Router1,"SNMP monitoring works, but the monitoring system receives more information than required from all configured devices.","SNMP polling is successful and devices respond, but unnecessary objects are included in monitoring queries.",SNMP monitoring scope is broader than operational requirements.,Layer 7,SNMP Monitoring Scope,Low,show running-config,Restrict SNMP views or monitoring queries to only required objects and devices.,Confirm essential monitoring data remains available while unnecessary polling is reduced.,Proper SNMP scope reduces management traffic and improves monitoring efficiency.,"
+You are a network troubleshooting assistant.
+
+Analyze the following network fault case using only the information provided.
+
+Network Topology:
+NMS — Switch1 — Router1
+
+Protocol or Technology:
+SNMP
+
+Symptom:
+SNMP monitoring works, but the monitoring system receives more information than required from all configured devices.
+
+Evidence:
+SNMP polling is successful and devices respond, but unnecessary objects are included in monitoring queries.
+
+Provide the diagnosis in the following format:
+
+Root Cause:
+Confidence:
+Evidence Used:
+OSI Layer:
+Recommended Next Command:
+Suggested Fix Steps:
+
+Do not make unsupported assumptions.
+If the available evidence is insufficient, mention that additional troubleshooting is required.
+","SNMP monitoring works, but the monitoring system receives more information than required from all configured devices. SNMP polling is successful and devices respond, but unnecessary objects are included in monitoring queries.",C079,0.4,Medium,Incorrect SNMP community string or missing SNMP agent configuration prevents monitoring communication.,show running-config,Configure the correct SNMP community and access permissions on the monitored devices.,FALSE
